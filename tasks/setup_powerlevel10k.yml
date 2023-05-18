@@ -1,0 +1,31 @@
+- name: Clone Powerlevel10k repository for Oh My Zsh
+  git:
+    repo: 'https://github.com/romkatv/powerlevel10k.git'
+    dest: '~/.oh-my-zsh/custom/themes/powerlevel10k'
+  tags:
+    - install
+    - zsh
+
+- name: Ensure .zshrc exists
+  file:
+    path: "~/.zshrc"
+    state: touch
+  tags:
+    - install
+    - zsh
+
+- name: Set ZSH_THEME in .zshrc
+  lineinfile:
+    path: "~/.zshrc"
+    line: 'ZSH_THEME="powerlevel10k/powerlevel10k"'
+  tags:
+    - install
+    - zsh
+
+- name: Source powerlevel10k theme in .zshrc
+  lineinfile:
+    path: "~/.zshrc"
+    line: 'source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme'
+  tags:
+    - install
+    - zsh
