@@ -22,7 +22,6 @@ WORKDIR /home/kdlocpanda
 COPY ./local.yml ./local.yml
 COPY ./tasks ./tasks
 COPY ./install ./install
-COPY ./EffectivleyRon.png ./EffectivleyRon.png
 
 ENTRYPOINT ["/bin/bash"]
 CMD ["-i"]

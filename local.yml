@@ -13,5 +13,5 @@
     - import_tasks: tasks/git-setup.yml
     - import_tasks: tasks/core-setup.yml
     - import_tasks: tasks/zsh-setup.yml
-    - import_tasks: tasks/nvchad-setup.yml
-    - import_tasks: tasks/setup_powerlevel10k.yml
+    
+
