@@ -2,7 +2,7 @@
   apt: 
     name: zsh
   become: yes
-  tags: &tags_for_zsh_tasks [ 'install', 'productivity', 'dotfiles', 'zsh' ]
+  tags: &tags_for_zsh_tasks [ m 'zsh' ]
 
 - name: Change shell to zsh
   shell: chsh -s $(which zsh)
@@ -29,10 +29,36 @@
   become: yes
   tags: *tags_for_zsh_tasks
 
+- name: Define functions for .zshrc
+  set_fact:
+    zshrc_functions: |
+      switch_to_personal() {
+        ssh-add -D
+        ssh-add ~/.ssh/id_ed25519_personal
+        git config --global user.email "joshua.yorko@gmail.com"
+        echo "Switched to Personal SSH and Git Config."
+      }
+
+      switch_to_work() {
+        ssh-add -D
+        ssh-add ~/.ssh/id_ed25519_work
+        git config --global user.email "joshua.yorko@gainwelltechnologies.com"
+        echo "Switched to Work SSH and Git Config."
+      }
+
+- name: Add functions to .zshrc
+  lineinfile:
+    path: /home/kdlocpanda/.zshrc
+    line: "{{ zshrc_functions }}"
+    create: yes
+  become: yes
+  become_user: kdlocpanda
+
+
 - name: Set ZSH as default shell in .bashrc
   lineinfile:
     path: /home/kdlocpanda/.bashrc
-    line: 'export SHELL=$(which zsh)'
+    line: 'exec zsh'
     create: yes
   become: yes
   become_user: kdlocpanda

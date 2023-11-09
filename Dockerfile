@@ -10,7 +10,7 @@ RUN apt-get update && \
     apt-get clean autoclean && \
     apt-get autoremove --yes
 
-FROM base AS prime
+FROM base AS yorko
 ARG TAGS
 RUN addgroup --gid 1000 kdlocpanda
 RUN adduser --gecos kdlocpanda --uid 1000 --gid 1000 --disabled-password kdlocpanda
@@ -19,9 +19,11 @@ USER kdlocpanda
 WORKDIR /home/kdlocpanda
 
 # Copy your Ansible playbook and related files into the Docker image
-COPY ./local.yml ./local.yml
-COPY ./tasks ./tasks
-COPY ./install ./install
+COPY . .
+
+RUN ./install
+
+
 
 ENTRYPOINT ["/bin/bash"]
 CMD ["-i"]

@@ -1,0 +1,49 @@
+- name: Install Docker dependencies
+  become: yes
+  apt:
+    name: ["apt-transport-https", "ca-certificates", "curl", "software-properties-common", "gnupg-agent"]
+    state: present
+
+- name: Add Docker’s official GPG key
+  become: yes
+  apt_key:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    state: present
+
+- name: Get Ubuntu codename
+  become: yes
+  command: lsb_release -cs
+  register: ubuntu_codename
+  changed_when: false
+
+- name: Set up the stable Docker repository
+  become: yes
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_codename.stdout }} stable"
+    state: present
+
+- name: Install Docker Engine
+  become: yes
+  apt:
+    name: "docker-ce"
+    state: present
+    update_cache: yes
+
+- name: Get system and machine info
+  become: yes
+  command: "uname -s"
+  register: system_info
+  changed_when: false
+
+- name: Get machine hardware name
+  become: yes
+  command: "uname -m"
+  register: machine_hardware
+  changed_when: false
+
+- name: Install Docker Compose
+  become: yes
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-{{ system_info.stdout }}-{{ machine_hardware.stdout }}"
+    dest: "/usr/local/bin/docker-compose"
+    mode: 'u+x,g+x'
