@@ -29,6 +29,23 @@
   become: yes
   tags: *tags_for_zsh_tasks
 
+- name: Install zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+    dest: "~/.oh-my-zsh/plugins/zsh-syntax-highlighting"
+  become: yes
+  tags: *tags_for_zsh_tasks
+
+- name: Add Plugins to .zshrc
+  lineinfile:
+    path: /home/kdlocpanda/.zshrc
+    regexp: '^plugins=.*'
+    line: 'plugins=(git python zsh-autosuggestions zsh-syntax-highlighting)'
+    create: yes
+  become: yes
+  become_user: kdlocpanda
+  tags: *tags_for_zsh_tasks
+
 - name: Define functions for .zshrc
   set_fact:
     zshrc_functions: |

@@ -14,6 +14,7 @@
     - import_tasks: tasks/core-setup.yml
     - import_tasks: tasks/git-setup.yml
     - import_tasks: tasks/zsh-setup.yml
+    - import_tasks: tasks/software-setup.yml
     - import_tasks: tasks/nvim-setup.yml
 
 

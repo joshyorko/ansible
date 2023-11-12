@@ -23,7 +23,7 @@ COPY . .
 
 RUN ./install
 
-
+RUN ansible-playbook local.yml
 
 ENTRYPOINT ["/bin/bash"]
 CMD ["-i"]
