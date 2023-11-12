@@ -1,4 +1,5 @@
 - hosts: localhost
+  connection: local
   pre_tasks:
     - name: Update Apt
       become: true
@@ -10,8 +11,12 @@
         - install
         - core
   tasks:
-    - import_tasks: tasks/git-setup.yml
     - import_tasks: tasks/core-setup.yml
+    - import_tasks: tasks/git-setup.yml
     - import_tasks: tasks/zsh-setup.yml
+    - import_tasks: tasks/software-setup.yml
+    - import_tasks: tasks/nvim-setup.yml
+
+
     
 
