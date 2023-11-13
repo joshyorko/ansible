@@ -46,3 +46,4 @@
 #    key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519_personal.pub"
 #  with_fileglob:
 #  - "{{ lookup('env', 'HOME') }}/.ssh/*.pub"
+#

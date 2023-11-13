@@ -15,7 +15,9 @@
     dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
     recursive: yes
     update: yes
+    force: no
     #accept_hostkey: yes
+
 
   tags:
     - install

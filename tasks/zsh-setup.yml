@@ -83,3 +83,12 @@
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
+- name: Set ZSH as default shell in .bash_profile
+  lineinfile:
+    path: /home/kdlocpanda/.bash_profile
+    line: 'exec zsh'
+    create: yes
+  become: yes
+  become_user: kdlocpanda
+  tags: *tags_for_zsh_tasks
+
