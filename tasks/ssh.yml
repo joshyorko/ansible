@@ -1,4 +1,4 @@
-- name: Ensure .ssh directory exists.
+- name: Ensure .ssh directory exists
   file:
     dest: "{{ dest_key | dirname }}"
     mode: 0700
@@ -7,6 +7,19 @@
     - dotfiles
     - install
     - ssh
+
+- name: Change ownership of .ssh directory
+  become: true
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.ssh"
+    owner: kdlocpanda
+    group: kdlocpanda
+    recurse: yes
+  tags:
+    - dotfiles
+    - install
+    - ssh
+
 - name: Install ssh key
   copy:
     src: "{{ source_key }}"
@@ -25,10 +38,11 @@
     - dotfiles
     - install
     - ssh
-- name: Set authorized key took from file
-  authorized_key:
-    user: "{{ lookup('env', 'USER') }}"
-    state: present
-    key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
-  with_fileglob:
-  - "{{ lookup('env', 'HOME') }}/.ssh/*.pub"
+
+#- name: Set authorized key took from file
+#  authorized_key:
+#    user: "kdlocpanda"
+#    state: present
+#    key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519_personal.pub"
+#  with_fileglob:
+#  - "{{ lookup('env', 'HOME') }}/.ssh/*.pub"

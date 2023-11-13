@@ -6,28 +6,42 @@
     autoremove: yes
     autoclean: yes
 
-- name: Install Powerlevel10k
+- name: Clone Powerlevel10k for Oh My Zsh
   git:
     repo: 'https://github.com/romkatv/powerlevel10k.git'
-    dest: '~/powerlevel10k'
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/powerlevel10k"
     clone: yes
     update: yes
     depth: 1
 
-- name: Add Powerlevel10k to zshrc
+- name: Set Powerlevel10k as the Zsh theme in .zshrc
   lineinfile:
-    path: /home/kdlocpanda/.zshrc
+    path: "{{ ansible_env.HOME }}/.zshrc"
     regexp: '^ZSH_THEME=.*'
     line: 'ZSH_THEME="powerlevel10k/powerlevel10k"'
     create: yes
   become: yes
   become_user: kdlocpanda
 
-
-
-- name: Install fonts-powerline
+- name: Create font directory
   become: yes
-  apt:
-    name: fonts-powerline
-    state: present
+  become_user: kdlocpanda
+  file:
+    path: "{{ ansible_env.HOME }}/.local/share/fonts"
+    state: directory
+    mode: '0755'
+
+
+
+- name: Download MesloLGS NF fonts
+  become: yes
+  become_user: kdlocpanda
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/{{ item.file }}"
+  loop:
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf', file: 'MesloLGS NF Regular.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf', file: 'MesloLGS NF Bold.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf', file: 'MesloLGS NF Italic.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf', file: 'MesloLGS NF Bold Italic.ttf' }
 
