@@ -8,7 +8,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y curl git ansible build-essential && \
     apt-get clean autoclean && \
-    apt-get autoremove --yes
+    apt-get autoremove --yes 
 
 FROM base AS yorko
 ARG TAGS
