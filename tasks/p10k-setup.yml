@@ -23,12 +23,25 @@
   become: yes
   become_user: kdlocpanda
 
-
-
-
-- name: Install fonts-powerline
+- name: Create font directory
   become: yes
-  apt:
-    name: fonts-powerline
-    state: present
+  become_user: kdlocpanda
+  file:
+    path: "{{ ansible_env.HOME }}/.local/share/fonts"
+    state: directory
+    mode: '0755'
+
+
+
+- name: Download MesloLGS NF fonts
+  become: yes
+  become_user: kdlocpanda
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/{{ item.file }}"
+  loop:
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf', file: 'MesloLGS NF Regular.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf', file: 'MesloLGS NF Bold.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf', file: 'MesloLGS NF Italic.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf', file: 'MesloLGS NF Bold Italic.ttf' }
 
