@@ -1,23 +1,31 @@
 - name: Installing stow
+  become: yes
   apt: name=stow
   tags:
     - install
     - dotfiles
     - stow
+
+
 - name: Cloning .dotfiles
+  become: yes
+  become_user: kdlocpanda
   ansible.builtin.git:
-    repo: 'git@github.com:joshyorko/.dotfiles.git'
+    repo: 'https://github.com/joshyorko/.dotfiles.git'
     dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
     recursive: yes
     update: yes
-    accept_hostkey: yes
-    version: master
+    #accept_hostkey: yes
+
   tags:
     - install
     - dotfiles
     - stow
+
 - name: Stow dotfiles
-  shell: cd $HOME/.dotfiles && ./ubuntu
+  become: yes
+  become_user: kdlocpanda
+  ansible.builtin.shell: cd $HOME/.dotfiles && ./ubuntu
   tags:
     - install
     - dotfiles
