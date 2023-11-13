@@ -39,10 +39,10 @@
     - install
     - ssh
 
-- name: Set authorized key took from file
-  authorized_key:
-    user: "kdlocpanda"
-    state: present
-    key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519_personal.pub"
-  with_fileglob:
-  - "{{ lookup('env', 'HOME') }}/.ssh/*.pub"
+#- name: Set authorized key took from file
+#  authorized_key:
+#    user: "kdlocpanda"
+#    state: present
+#    key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519_personal.pub"
+#  with_fileglob:
+#  - "{{ lookup('env', 'HOME') }}/.ssh/*.pub"
