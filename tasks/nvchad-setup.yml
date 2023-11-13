@@ -1,0 +1,10 @@
+- name: Install NvChad
+  become: yes
+  become_user: kdlocpanda
+  git:
+    repo: 'https://github.com/NvChad/NvChad.git'
+    dest: '~/.config/nvim'
+    clone: yes
+    update: yes
+    depth: 1
+

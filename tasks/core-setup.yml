@@ -19,17 +19,10 @@
 - name: Install System Packages 3 (the rest)
   become: yes
   apt:
-    name: ["htop", "lsof", "ccache", "ninja-build", "python3-pip", "moreutils"]
+    name: ["htop", "lsof", "ccache", "ninja-build", "python3-pip", "moreutils","ripgrep"]
   tags:
     - install
     - core
 
 
-
-#- name: Install Minikube
-#  become: yes
-#  get_url:
-#    url: "https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64"
-#    dest: "/usr/local/bin/minikube"
-#    mode: 'u+x,g+x'
 

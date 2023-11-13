@@ -27,6 +27,7 @@
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
     dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
   become: yes
+  become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
 - name: Install zsh-syntax-highlighting
@@ -34,6 +35,7 @@
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
     dest: "~/.oh-my-zsh/plugins/zsh-syntax-highlighting"
   become: yes
+  become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
 - name: Add Plugins to .zshrc
