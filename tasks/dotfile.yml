@@ -25,7 +25,7 @@
 - name: Stow dotfiles
   become: yes
   become_user: kdlocpanda
-  ansible.builtin.shell: cd $HOME/.dotfiles && ./ubuntu
+  ansible.builtin.shell: cd $HOME/.dotfiles
   tags:
     - install
     - dotfiles
