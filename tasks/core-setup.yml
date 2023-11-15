@@ -25,11 +25,12 @@
     - core
     - neovim
 
+
 - name: Install Node.js and npm
   become: yes
   block:
-    - name: Add NodeSource distributions
-      shell: "curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -"
+    - name: Add NodeSource distributions for Node.js 16
+      shell: "curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -"
     - name: Install Node.js and npm
       apt:
         name: ["nodejs"]
@@ -37,6 +38,7 @@
   tags:
     - install
     - core
+
 
 - name: Install Python3 and venv for virtual environment creation
   become: yes
