@@ -1,0 +1,35 @@
+- name: Create font directory
+  become: yes
+  become_user: kdlocpanda
+  file:
+    path: "{{ ansible_env.HOME }}/.local/share/fonts"
+    state: directory
+    mode: '0755'
+
+
+
+
+- name: Download MesloLGS NF fonts
+  become: yes
+  become_user: kdlocpanda
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/{{ item.file }}"
+  loop:
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf', file: 'MesloLGS NF Regular.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf', file: 'MesloLGS NF Bold.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf', file: 'MesloLGS NF Italic.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf', file: 'MesloLGS NF Bold Italic.ttf' }
+
+
+- name: Download Nerd Fonts
+  become: yes
+  become_user: kdlocpanda
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/{{ item.file }}"
+    mode: '0644'
+  loop:
+    - { url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/complete/Fira%20Code%20Regular%20Nerd%20Font%20Complete.ttf', file: 'Fira Code Regular Nerd Font Complete.ttf' }
+    - { url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Bold/complete/Fira%20Code%20Bold%20Nerd%20Font%20Complete.ttf', file: 'Fira Code Bold Nerd Font Complete.ttf' }
+
