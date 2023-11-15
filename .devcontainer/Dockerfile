@@ -26,13 +26,7 @@ RUN mkdir -p /home/kdlocpanda/.ssh && \
 USER kdlocpanda
 WORKDIR /home/kdlocpanda
 
-# Copy your Ansible playbook and related files into the Docker image
 
-
-COPY . .
-
-# Uncomment if you want to run your Ansible playbook during the build
-RUN ansible-playbook local.yml
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog

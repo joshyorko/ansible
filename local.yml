@@ -17,9 +17,17 @@
     - import_tasks: tasks/dotfile.yml
     - import_tasks: tasks/ssh.yml
     - import_tasks: tasks/core-setup.yml
+      tags:
+        - core
     - import_tasks: tasks/git-setup.yml
+      tags:
+        - core
     - import_tasks: tasks/zsh-setup.yml
+      tags:
+        - core
     - import_tasks: tasks/p10k-setup.yml
+      tags:
+        - core
     - import_tasks: tasks/nvim-setup.yml
     - import_tasks: tasks/nvchad-setup.yml
 

@@ -24,7 +24,7 @@ USER kdlocpanda
 WORKDIR /home/kdlocpanda
 
 # Copy your Ansible playbook and related files into the Docker image
-COPY ansible-run.sh /home/kdlocpanda/ansible-run.sh
+COPY . .
 
 
 # Uncomment if you want to run your Ansible playbook during the build
