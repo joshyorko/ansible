@@ -1,0 +1,7 @@
+{
+    "name": "🚀 Josh Ansible Setup 🛠️",
+    "dockerFile": "Dockerfile",
+    "forwardPorts": [3000],
+    "postCreateCommand": "echo '🎉 Welcome to your development container 🎉'",
+    "extensions": ["dbaeumer.vscode-eslint"]
+}

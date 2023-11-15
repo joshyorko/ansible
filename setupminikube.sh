@@ -29,6 +29,10 @@ start_minikube() {
 }
 
 # Function to seek user's validation for continuing the process
+# Function to seek user validation before performing a series of actions.
+# The actions include building Docker images using docker-compose, starting Minikube with best calculated memory and CPU allocations, loading the built Docker images into Minikube, creating or updating Maui secrets in the 'maui' namespace, and applying deployment and service configuration to Kubernetes.
+# If the user chooses not to proceed, the function will exit with an error message.
+
 seek_user_validation() {
     echo -e "${RED}🛑 ATTENTION!${NC}"
     echo "The following actions will be performed:"
@@ -66,15 +70,39 @@ start_minikube $memory $cpus
 # Define the addons to be enabled
 addons=(
     "metrics-server"
-    #"ingress"
-    #"efk"
+    "ingress"
+    "efk"
     "dashboard"
-    #"inspektor-gadget"
-    #"metallb"
-    #"helm-tiller"
+    "inspektor-gadget"
+    "metallb"
+    "helm-tiller"
 )
 
-# Enable each addon in Minikube
+# Print the list of addons and prompt the user to select which addons to enable
+echo "Please select which addons to enable:"
+for i in "${!addons[@]}"; do
+    addon="${addons[$i]}"
+    addon_name=$(echo "$addon" | cut -d' ' -f2)
+    addon_number=$((i+1))
+    echo "$addon_number. $addon_name"
+done
+read -p "Enter the numbers of the addons to enable (separated by spaces): " -a selected_addons
+
+# Enable the selected addons
+for addon_number in $selected_addons; do
+    addon_index=$((addon_number - 1))
+    if [[ $addon_index -lt ${#addons[@]} ]]; then
+        addon=${addons[$addon_index]}
+        addon_name=$(echo "$addon" | cut -d' ' -f2)
+        echo "Enabling $addon_name..."
+        minikube addons enable "$addon_name"
+    fi
+done
+
+echo "Selected addons have been enabled."
+
+# This script enables each addon in Minikube by iterating through the list of addons and enabling them one by one.
+# It then prints a message indicating that all specified addons have been enabled.
 for addon in "${addons[@]}"; do
     echo "Enabling $addon..."
     minikube addons enable "$addon"
@@ -85,6 +113,9 @@ echo "All specified addons have been enabled."
 
 
 
+# This script configures Docker CLI to use Minikube's Docker daemon by setting the environment variables to the Docker daemon running inside Minikube.
+# FILEPATH: /home/kdlocpanda/projects/my_repos/ansible/setupminikube.sh
+# Usage: source setupminikube.sh
 # Configure Docker CLI to use Minikube's Docker daemon
 echo -e "${GREEN}🚢 Configuring Docker to use Minikube's Docker daemon...${NC}"
 eval $(minikube -p minikube docker-env)
