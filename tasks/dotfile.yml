@@ -12,7 +12,7 @@
   become_user: kdlocpanda
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/.dotfiles.git'
-    dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
+    dest: "/home/kdlocpanda/.dotfiles"
     recursive: yes
     update: yes
     force: no
