@@ -30,7 +30,9 @@
         - core
     - import_tasks: tasks/nvim-setup.yml
     - import_tasks: tasks/nvchad-setup.yml
-
+    - import_tasks: task/fonts-setup.yml
+      tags:
+        - fonts
 
     
 
