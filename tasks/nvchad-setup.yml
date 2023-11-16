@@ -1,3 +1,12 @@
+- name: Install expect
+  become: true
+  apt:
+    name: expect
+    state: present
+  tags:
+    - install
+    - expect
+
 - name: Install NvChad
   become: yes
   become_user: kdlocpanda
@@ -16,50 +25,62 @@
     dest: '~/.vim/pack/github/start/copilot.vim'
     clone: yes
 
-- name: Configure GitHub Copilot in plugins.lua
-  become: yes
-  become_user: kdlocpanda
-  blockinfile:
-    path: '~/.config/nvim/lua/custom/plugins.lua'
-    block: |
-      {
-        "github/copilot.vim",
-        lazy: false,
-        config: function()
-          vim.g.copilot_no_tab_map = true
-          vim.g.copilot_assume_mapped = true
-          vim.g.copilot_tab_fallback = ""
-        end
-      }
-
-- name: Configure Key Mappings for Copilot
-  become: yes
-  become_user: kdlocpanda
-  blockinfile:
-    path: '~/.config/nvim/lua/custom/mappings.lua'
-    block: |
-      M.copilot = {
-        i = {  -- in insert mode
-          ["<C-l>"] = {  -- using Ctrl-l
-            function()
-              vim.fn.feedkeys(vim.fn['copilot#Accept'](), '')
-            end,
-            "Copilot Accept",
-            {replace_keycodes = true, nowait=true, silent=true, expr=true, noremap=true}
-          }
-        }
-      }
-
-- name: Enable Transparency in chadrc.lua
-  become: yes
-  become_user: kdlocpanda
-  blockinfile:
-    path: '~/.config/nvim/lua/custom/chadrc.lua'
-    block: |
-      M.ui = {
-        theme = "catppuccin",
-        theme_toggle = { "catppuccin", "one_light" },
-        hl_override = highlights.override,
-        hl_add = highlights.add,
-        transparency = true  -- Enable transparency
-      }
+#need to use expect to run nvim and install plugins (need to write y/n to install plugins)
+#- name: Install Plugins
+#  become: yes
+#  become_user: kdlocpanda
+#  expect:
+#    command: nvim -c 'PackerSync'
+#    responses:
+#      'Press ENTER or type command to continue': '\r'
+#     expect "? Azure Tenant ID:"
+#    send "c663f89c-ef9b-418f-bd3d-41e46c0ce068\r"
+#
+#- name: Configure GitHub Copilot in plugins.lua
+#  become: yes
+#  become_user: kdlocpanda
+#  blockinfile:
+#    path: '~/.config/nvim/lua/custom/plugins.lua'
+#    block: |
+#      {
+#        "github/copilot.vim",
+#        lazy: false,
+#        config: function()
+#          vim.g.copilot_no_tab_map = true
+#          vim.g.copilot_assume_mapped = true
+#          vim.g.copilot_tab_fallback = ""
+#        end
+#      }
+#
+#- name: Configure Key Mappings for Copilot
+#  become: yes
+#  become_user: kdlocpanda
+#  blockinfile:
+#    path: '~/.config/nvim/lua/custom/mappings.lua'
+#    block: |
+#      M.copilot = {
+#        i = {  -- in insert mode
+#          ["<C-l>"] = {  -- using Ctrl-l
+#            function()
+#              vim.fn.feedkeys(vim.fn['copilot#Accept'](), '')
+#            end,
+#            "Copilot Accept",
+#            {replace_keycodes = true, nowait=true, silent=true, expr=true, noremap=true}
+#          }
+#        }
+#      }
+#
+#- name: Enable Transparency in chadrc.lua
+#  become: yes
+#  become_user: kdlocpanda
+#  blockinfile:
+#    path: '~/.config/nvim/lua/custom/chadrc.lua'
+#    block: |
+#      M.ui = {
+#        theme = "catppuccin",
+#        theme_toggle = { "catppuccin", "one_light" },
+#        hl_override = highlights.override,
+#        hl_add = highlights.add,
+#        transparency = true  -- Enable transparency
+#      }
+#
