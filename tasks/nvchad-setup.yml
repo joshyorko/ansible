@@ -26,7 +26,7 @@
     clone: yes
 
 # need to use expect to run nvim and install plugins (need to write y/n to install plugins)
-- name: Install Plugins
+- name: Configure NvChad
   become: yes
   become_user: kdlocpanda
   expect:
