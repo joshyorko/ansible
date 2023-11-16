@@ -25,12 +25,12 @@ WORKDIR /home/kdlocpanda
 # Copy your Ansible playbook and related files into the Docker image
 COPY encrypt_decrypt_script.py /home/kdlocpanda/encrypt_decrypt_script.py
 COPY .ssh /home/kdlocpanda/.ssh
-
+COPY . .
 
 
 
 # Uncomment if you want to run your Ansible playbook during the build
-RUN ansible-pull -U https://github.com/joshyorko/ansible.git
+#RUN ansible-pull -U https://github.com/joshyorko/ansible.git
 
 ENTRYPOINT ["/bin/bash"]
 CMD ["-i"]
