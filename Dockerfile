@@ -17,17 +17,20 @@ RUN adduser --gecos kdlocpanda --uid 1000 --gid 1000 --disabled-password kdlocpa
 RUN echo 'kdlocpanda ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # New commands to create and set permissions for .ssh directory
-RUN mkdir -p /home/kdlocpanda/.ssh 
+
 
 USER kdlocpanda
 WORKDIR /home/kdlocpanda
 
 # Copy your Ansible playbook and related files into the Docker image
-COPY . . /home/kdlocpanda/
+COPY encrypt_decrypt_script.py /home/kdlocpanda/encrypt_decrypt_script.py
+COPY .ssh /home/kdlocpanda/.ssh
+
+
 
 
 # Uncomment if you want to run your Ansible playbook during the build
-#RUN ansible-playbook local.yml
+RUN ansible-pull -U https://github.com/joshyorko/ansible.git
 
 ENTRYPOINT ["/bin/bash"]
 CMD ["-i"]
