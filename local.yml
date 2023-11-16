@@ -15,7 +15,7 @@
         - core
   tasks:
     - import_tasks: tasks/dotfile.yml
-    - import_tasks: tasks/ssh.yml
+      # - import_tasks: tasks/ssh.yml 
     - import_tasks: tasks/core-setup.yml
       tags:
         - core
