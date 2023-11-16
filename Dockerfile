@@ -17,7 +17,7 @@ RUN adduser --gecos kdlocpanda --uid 1000 --gid 1000 --disabled-password kdlocpa
 RUN echo 'kdlocpanda ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # New commands to create and set permissions for .ssh directory
-RUN mkdir -p /home/kdlocpanda/.ssh && 
+RUN mkdir -p /home/kdlocpanda/.ssh 
 
 USER kdlocpanda
 WORKDIR /home/kdlocpanda
