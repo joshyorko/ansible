@@ -14,61 +14,59 @@
   tags:
   - git-work
 
-
 - name: my_repos exists
   stat:
     path: "{{ personal }}/my_repos"
   register: my_repos
 
-
-- name: Personal Project - yorko-resume
+- name: Personal Project - template_streamlit
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/yorko-resume.git'
-    dest: "{{ personal }}/yorko-resume"
+    repo: 'https://github.com/joshyorko/template_streamlit.git'
+    dest: "{{ personal }}/template_streamlit"
   tags:
-    - resume
+    - template_streamlit
 
-- name: Personal Project - AutoGPT
+- name: Personal Project - aws-data-lake-demo
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/AutoGPT.git'
-    dest: "{{ personal }}/AutoGPT"
+    repo: 'https://github.com/joshyorko/aws-data-lake-demo.git'
+    dest: "{{ personal }}/aws-data-lake-demo"
   tags:
-    - autogpt
+    - aws-data-lake-demo
 
-- name: Personal Project - youtube-transcript-downloader
+- name: Personal Project - pyspark-glue-tutorial
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/youtube-transcript-downloader.git'
-    dest: "{{ personal }}/youtube-transcript-downloader"
+    repo: 'https://github.com/joshyorko/pyspark-glue-tutorial.git'
+    dest: "{{ personal }}/pyspark-glue-tutorial"
   tags:
-    - youtube
+    - pyspark-glue-tutorial
 
-- name: Personal Project - openai-cookbook
+- name: Personal Project - forgpt
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/openai-cookbook.git'
-    dest: "{{ personal }}/openai-cookbook"
+    repo: 'https://github.com/joshyorko/forgpt.git'
+    dest: "{{ personal }}/forgpt"
   tags:
-    - openai
+    - forgpt
 
-- name: Personal Project - Mini-IronRipper
+- name: Personal Project - ansible
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/Mini-IronRipper.git'
-    dest: "{{ personal }}/Mini-IronRipper"
+    repo: 'https://github.com/joshyorko/ansible.git'
+    dest: "{{ personal }}/ansible"
   tags:
-    - ironripper
+    - ansible
 
-- name: Personal Project - chatgpt-retrieval-plugin
+- name: Personal Project - work
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/chatgpt-retrieval-plugin.git'
-    dest: "{{ personal }}/chatgpt-retrieval-plugin"
+    repo: 'https://github.com/joshyorko/work.git'
+    dest: "{{ personal }}/work"
   tags:
-    - chatgpt
+    - work
 
-- name: Personal Project - docusense_2.0
+- name: Personal Project - openai_plugins
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/docusense_2.0.git'
-    dest: "{{ personal }}/docusense_2.0"
+    repo: 'https://github.com/joshyorko/openai_plugins.git'
+    dest: "{{ personal }}/openai_plugins"
   tags:
-    - docusense
+    - openai_plugins
 
 - name: Personal Project - docusense
   ansible.builtin.git:
@@ -77,9 +75,51 @@
   tags:
     - docusense
 
-- name: Personal Project - openai_plugins
+- name: Personal Project - docusense_2.0
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/openai_plugins.git'
-    dest: "{{ personal }}/openai_plugins"
+    repo: 'https://github.com/joshyorko/docusense_2.0.git'
+    dest: "{{ personal }}/docusense_2.0"
   tags:
-    - openai_plugins
+    - docusense_2.0
+
+- name: Personal Project - chatgpt-retrieval-plugin
+  ansible.builtin.git:
+    repo: 'https://github.com/joshyorko/chatgpt-retrieval-plugin.git'
+    dest: "{{ personal }}/chatgpt-retrieval-plugin"
+  tags:
+    - chatgpt-retrieval-plugin
+
+- name: Personal Project - Mini-IronRipper
+  ansible.builtin.git:
+    repo: 'https://github.com/joshyorko/Mini-IronRipper.git'
+    dest: "{{ personal }}/Mini-IronRipper"
+  tags:
+    - Mini-IronRipper
+
+- name: Personal Project - openai-cookbook
+  ansible.builtin.git:
+    repo: 'https://github.com/joshyorko/openai-cookbook.git'
+    dest: "{{ personal }}/openai-cookbook"
+  tags:
+    - openai-cookbook
+
+- name: Personal Project - AutoGPT
+  ansible.builtin.git:
+    repo: 'https://github.com/joshyorko/AutoGPT.git'
+    dest: "{{ personal }}/AutoGPT"
+  tags:
+    - AutoGPT
+
+- name: Personal Project - yorko-resume
+  ansible.builtin.git:
+    repo: 'https://github.com/joshyorko/yorko-resume.git'
+    dest: "{{ personal }}/yorko-resume"
+  tags:
+    - yorko-resume
+
+- name: Personal Project - .dotfiles
+  ansible.builtin.git:
+    repo: 'https://github.com/joshyorko/.dotfiles.git'
+    dest: "{{ personal }}/.dotfiles"
+  tags:
+    - dotfiles
