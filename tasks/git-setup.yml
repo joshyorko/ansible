@@ -15,73 +15,71 @@
   - git-work
 
 
- - name: Ensure my_repos directory exists
-      file:
-        path: "{{ my_repos_directory }}"
-        state: directory
-      vars:
-        my_repos_directory: "home/kdlocpanda/my_repos"
+- name: my_repos exists
+  stat:
+    path: "{{ personal }}/my_repos"
+  register: my_repos
 
 
 - name: Personal Project - yorko-resume
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/yorko-resume.git'
-    dest: "{{ my_repos_directory }}/yorko-resume"
+    dest: "{{ personal }}/yorko-resume"
   tags:
     - resume
 
 - name: Personal Project - AutoGPT
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/AutoGPT.git'
-    dest: "{{ my_repos_directory }}/AutoGPT"
+    dest: "{{ personal }}/AutoGPT"
   tags:
     - autogpt
 
 - name: Personal Project - youtube-transcript-downloader
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/youtube-transcript-downloader.git'
-    dest: "{{ my_repos_directory }}/youtube-transcript-downloader"
+    dest: "{{ personal }}/youtube-transcript-downloader"
   tags:
     - youtube
 
 - name: Personal Project - openai-cookbook
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/openai-cookbook.git'
-    dest: "{{ my_repos_directory }}/openai-cookbook"
+    dest: "{{ personal }}/openai-cookbook"
   tags:
     - openai
 
 - name: Personal Project - Mini-IronRipper
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/Mini-IronRipper.git'
-    dest: "{{ my_repos_directory }}/Mini-IronRipper"
+    dest: "{{ personal }}/Mini-IronRipper"
   tags:
     - ironripper
 
 - name: Personal Project - chatgpt-retrieval-plugin
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/chatgpt-retrieval-plugin.git'
-    dest: "{{ my_repos_directory }}/chatgpt-retrieval-plugin"
+    dest: "{{ personal }}/chatgpt-retrieval-plugin"
   tags:
     - chatgpt
 
 - name: Personal Project - docusense_2.0
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/docusense_2.0.git'
-    dest: "{{ my_repos_directory }}/docusense_2.0"
+    dest: "{{ personal }}/docusense_2.0"
   tags:
     - docusense
 
 - name: Personal Project - docusense
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/docusense.git'
-    dest: "{{ my_repos_directory }}/docusense"
+    dest: "{{ personal }}/docusense"
   tags:
     - docusense
 
 - name: Personal Project - openai_plugins
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/openai_plugins.git'
-    dest: "{{ my_repos_directory }}/openai_plugins"
+    dest: "{{ personal }}/openai_plugins"
   tags:
     - openai_plugins
