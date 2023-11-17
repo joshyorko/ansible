@@ -16,15 +16,21 @@ RUN addgroup --gid 1000 kdlocpanda
 RUN adduser --gecos kdlocpanda --uid 1000 --gid 1000 --disabled-password kdlocpanda
 RUN echo 'kdlocpanda ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-# New commands to create and set permissions for .ssh directory
-
-
-USER kdlocpanda
 WORKDIR /home/kdlocpanda
 
 # Copy your Ansible playbook and related files into the Docker image
 COPY .ssh /home/kdlocpanda/.ssh
 COPY . .
+
+# Switch to root user
+USER root
+
+# Change ownership of the files to kdlocpanda
+RUN chown -R kdlocpanda:kdlocpanda /home/kdlocpanda
+
+# Switch back to kdlocpanda user
+USER kdlocpanda
+
 
 
 
