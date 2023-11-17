@@ -83,15 +83,8 @@
               return 1
           fi
 
-          # Adjust the find command for Windows if needed
-          local find_command="find ~ ~/projects -type d -iname *$search_term* 2>/dev/null"
-          if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
-              # For Git Bash on Windows or similar
-              find_command="find /c/Users -type d -iname *$search_term* 2>/dev/null"  # Adjust as needed
-          fi
-
           # Find directories matching the search term and select one using fzf
-          local selected_dir=$($find_command | fzf --prompt="Select a directory: ")
+          local selected_dir=$(find ~ ~/projects -type d -iname "*$search_term*" 2>/dev/null | fzf --prompt="Select a directory: ")
 
           # Check if a directory was selected
           if [ -n "$selected_dir" ]; then
@@ -104,12 +97,14 @@
                           return 1
                       fi
                       ;;
+                  -o) cd "$selected_dir" ;;  # Only change to the selected directory
                   *) nvim "$selected_dir" ;;  # Default to nvim if no option or unrecognized option is given
               esac
           else
               echo "🚫 No directory selected."
           fi
       }
+
 
 
 - name: Add functions to .zshrc
