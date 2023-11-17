@@ -53,6 +53,7 @@
         - personal
     - import_tasks: tasks/personal-projects.yaml
       tags:
+        - personal-projects
         - personal
 
     

@@ -10,19 +10,7 @@
   tags:
     - template_streamlit
 
-- name: Personal Project - aws-data-lake-demo
-  ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/aws-data-lake-demo.git'
-    dest: "{{ personal }}/aws-data-lake-demo"
-  tags:
-    - aws-data-lake-demo
 
-- name: Personal Project - pyspark-glue-tutorial
-  ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/pyspark-glue-tutorial.git'
-    dest: "{{ personal }}/pyspark-glue-tutorial"
-  tags:
-    - pyspark-glue-tutorial
 
 - name: Personal Project - forgpt
   ansible.builtin.git:
@@ -66,12 +54,6 @@
   tags:
     - docusense_2.0
 
-- name: Personal Project - chatgpt-retrieval-plugin
-  ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/chatgpt-retrieval-plugin.git'
-    dest: "{{ personal }}/chatgpt-retrieval-plugin"
-  tags:
-    - chatgpt-retrieval-plugin
 
 - name: Personal Project - Mini-IronRipper
   ansible.builtin.git:
@@ -80,19 +62,7 @@
   tags:
     - Mini-IronRipper
 
-- name: Personal Project - openai-cookbook
-  ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/openai-cookbook.git'
-    dest: "{{ personal }}/openai-cookbook"
-  tags:
-    - openai-cookbook
 
-- name: Personal Project - AutoGPT
-  ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/AutoGPT.git'
-    dest: "{{ personal }}/AutoGPT"
-  tags:
-    - AutoGPT
 
 - name: Personal Project - yorko-resume
   ansible.builtin.git:
