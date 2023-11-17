@@ -1,5 +1,5 @@
 #- name: Install VS Code Insiders
-#  become: yes
+#  become: true
 #  block:
 #    - name: Add Microsoft GPG key
 #      ansible.builtin.apt_key:
@@ -17,7 +17,7 @@
 #        state: present
 #
 #- name: Install Google Chrome
-#  become: yes
+#  become: true
 #  block:
 #    - name: Download Google Chrome
 #      get_url:

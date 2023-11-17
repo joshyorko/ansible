@@ -1,5 +1,5 @@
 - name: Install NvChad
-  become: yes
+  become: true
   become_user: kdlocpanda
   git:
     repo: 'https://github.com/NvChad/NvChad.git'
@@ -9,7 +9,7 @@
     depth: 1
 
 - name: Clone GitHub Copilot Plugin Repository
-  become: yes
+  become: true
   become_user: kdlocpanda
   git:
     repo: 'https://github.com/github/copilot.vim.git'

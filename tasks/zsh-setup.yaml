@@ -1,12 +1,14 @@
 - name: Install ZSH
-  apt: 
-    name: zsh
-  become: yes
+  block:
+    - apt:
+        name: zsh
+  become: true
   tags: &tags_for_zsh_tasks [ m 'zsh' ]
 
 - name: Change shell to zsh
-  shell: chsh -s $(which zsh)
-  become: yes
+  block:
+    - shell: chsh -s $(which zsh)
+  become: true
   tags: *tags_for_zsh_tasks
 
 - name: Check that the .oh-my-zsh exists
@@ -17,7 +19,7 @@
 
 - name: Oh-My-Zsh
   shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh > ~/.oh-my-installer && chmod +x ~/.oh-my-installer && ~/.oh-my-installer
-  become: yes
+  become: true
   tags: *tags_for_zsh_tasks
   when: oh_my_stats.stat.exists == False
   become_user: kdlocpanda
@@ -26,7 +28,7 @@
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
     dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
-  become: yes
+  become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
@@ -34,7 +36,7 @@
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
     dest: "~/.oh-my-zsh/plugins/zsh-syntax-highlighting"
-  become: yes
+  become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
@@ -44,7 +46,7 @@
     regexp: '^plugins=.*'
     line: 'plugins=(git python zsh-autosuggestions zsh-syntax-highlighting)'
     create: yes
-  become: yes
+  become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
@@ -65,12 +67,57 @@
         echo "Switched to Work SSH and Git Config."
       }
 
+      edir() {
+          local search_term=$1
+          local editor_option=$2
+
+          # Check if a search term is provided
+          if [ -z "$search_term" ]; then
+              echo "❌ Provide a search term."
+              return 1
+          fi
+
+          # Check for required tool: fzf
+          if ! command -v fzf >/dev/null 2>&1; then
+              echo "❌ Install 'fzf'."
+              return 1
+          fi
+
+          # Adjust the find command for Windows if needed
+          local find_command="find ~ ~/projects -type d -iname *$search_term* 2>/dev/null"
+          if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
+              # For Git Bash on Windows or similar
+              find_command="find /c/Users -type d -iname *$search_term* 2>/dev/null"  # Adjust as needed
+          fi
+
+          # Find directories matching the search term and select one using fzf
+          local selected_dir=$($find_command | fzf --prompt="Select a directory: ")
+
+          # Check if a directory was selected
+          if [ -n "$selected_dir" ]; then
+              case $editor_option in
+                  -c) 
+                      if command -v code-insiders >/dev/null 2>&1; then
+                          code-insiders "$selected_dir"
+                      else
+                          echo "❌ 'code-insiders' is not installed."
+                          return 1
+                      fi
+                      ;;
+                  *) nvim "$selected_dir" ;;  # Default to nvim if no option or unrecognized option is given
+              esac
+          else
+              echo "🚫 No directory selected."
+          fi
+      }
+
+
 - name: Add functions to .zshrc
   lineinfile:
     path: /home/kdlocpanda/.zshrc
     line: "{{ zshrc_functions }}"
     create: yes
-  become: yes
+  become: true
   become_user: kdlocpanda
 
 
@@ -79,7 +126,7 @@
     path: /home/kdlocpanda/.bashrc
     line: 'exec zsh'
     create: yes
-  become: yes
+  become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
@@ -88,7 +135,7 @@
     path: /home/kdlocpanda/.bash_profile
     line: 'exec zsh'
     create: yes
-  become: yes
+  become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 

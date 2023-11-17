@@ -1,5 +1,5 @@
 - name: Update and upgrade apt packages
-  become: yes
+  become: true
   apt:
     update_cache: yes
     upgrade: 'dist'
@@ -20,6 +20,6 @@
     regexp: '^ZSH_THEME=.*'
     line: 'ZSH_THEME="powerlevel10k/powerlevel10k"'
     create: yes
-  become: yes
+  become: true
   become_user: kdlocpanda
 
