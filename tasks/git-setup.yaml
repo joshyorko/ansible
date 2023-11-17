@@ -1,15 +1,21 @@
+- name: Git Setup
+  block:
+    - apt:
+        name: zsh
+  become: true
+  tags: &tags_for_git_tasks ['personal', 'work']
+
+
 - name: Git Personal Setup
   git_config:
     name: user.email
     scope: global
     value: "joshua.yorko@gmail.com"
-  tags:
-  - git-personal
+  tags: *tags_for_git_tasks
 
 - name: Git Work Setup
   git_config:
     name: user.name
     scope: global
     value: "joshua.yorko@gainwelltechnologies.com"
-  tags:
-  - git-work
+  tags: *tags_for_git_tasks

@@ -3,7 +3,7 @@
     - apt:
         name: zsh
   become: true
-  tags: &tags_for_zsh_tasks [ m 'zsh' ]
+  tags: &tags_for_zsh_tasks ['zsh','personal','work' ]
 
 - name: Change shell to zsh
   block:
@@ -44,13 +44,14 @@
   lineinfile:
     path: /home/kdlocpanda/.zshrc
     regexp: '^plugins=.*'
-    line: 'plugins=(git python zsh-autosuggestions zsh-syntax-highlighting)'
+    line: 'plugins=(ansible git python zsh-autosuggestions zsh-syntax-highlighting)'
     create: yes
   become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
 - name: Define functions for .zshrc
+  tags: *tags_for_zsh_tasks
   set_fact:
     zshrc_functions: |
       switch_to_personal() {
@@ -114,6 +115,7 @@
     create: yes
   become: true
   become_user: kdlocpanda
+  tags: *tags_for_zsh_tasks
 
 
 - name: Set ZSH as default shell in .bashrc
