@@ -23,7 +23,6 @@ USER kdlocpanda
 WORKDIR /home/kdlocpanda
 
 # Copy your Ansible playbook and related files into the Docker image
-COPY encrypt_decrypt_script.py /home/kdlocpanda/encrypt_decrypt_script.py
 COPY .ssh /home/kdlocpanda/.ssh
 COPY . .
 

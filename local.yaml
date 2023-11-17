@@ -14,27 +14,27 @@
         - install
         - core
   tasks:
-    - import_tasks: tasks/dotfile.yml
-      # - import_tasks: tasks/ssh.yml 
-    - import_tasks: tasks/core-setup.yml
+    - import_tasks: tasks/dotfile.yaml
+      # - import_tasks: tasks/ssh.yaml 
+    - import_tasks: tasks/core-setup.yaml
       tags:
         - core
-    - import_tasks: tasks/git-setup.yml
+    - import_tasks: tasks/git-setup.yaml
       tags:
         - git
-    - import_tasks: tasks/zsh-setup.yml
+    - import_tasks: tasks/zsh-setup.yaml
       tags:
         - zsh
-    - import_tasks: tasks/p10k-setup.yml
+    - import_tasks: tasks/p10k-setup.yaml
       tags:
         - p10k
-    - import_tasks: tasks/nvim-setup.yml
+    - import_tasks: tasks/nvim-setup.yaml
       tags:
         - nvim
-    - import_tasks: tasks/nvchad-setup.yml
+    - import_tasks: tasks/nvchad-setup.yaml
       tags:
         - nvchad
-    - import_tasks: tasks/fonts-setup.yml
+    - import_tasks: tasks/fonts-setup.yaml
       tags:
         - fonts
 

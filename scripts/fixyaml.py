@@ -3,9 +3,9 @@ import os
 def rename_files(directory):
     for root, dirs, files in os.walk(directory):
         for file in files:
-            if file.endswith('.yml'):
+            if file.endswith('.yaml'):
                 old_file_path = os.path.join(root, file)
-                new_file_path = os.path.join(root, file.split('.yml')[0] + '.yaml')
+                new_file_path = os.path.join(root, file.split('.yaml')[0] + '.yaml')
                 print(new_file_path)
                 os.rename(old_file_path, new_file_path)
 
