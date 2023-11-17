@@ -1,0 +1,42 @@
+- hosts: localhost
+  vars:
+    source_key: "./.ssh/id_ed25519_personal"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519_personal"
+    personal: "{{ lookup('env', 'HOME') }}/personal"
+  pre_tasks:
+    - name: Update Apt
+      become: true
+      apt:
+        force_apt_get: true
+        update_cache: true
+        state: present
+      tags:
+        - install
+        - core
+  tasks:
+    - import_tasks: tasks/dotfile.yaml
+      # - import_tasks: tasks/ssh.yaml 
+    - import_tasks: tasks/core-setup.yaml
+      tags:
+        - core
+    - import_tasks: tasks/git-setup.yaml
+      tags:
+        - git
+    - import_tasks: tasks/zsh-setup.yaml
+      tags:
+        - zsh
+    - import_tasks: tasks/p10k-setup.yaml
+      tags:
+        - p10k
+    - import_tasks: tasks/nvim-setup.yaml
+      tags:
+        - nvim
+    - import_tasks: tasks/nvchad-setup.yaml
+      tags:
+        - nvchad
+    - import_tasks: tasks/fonts-setup.yaml
+      tags:
+        - fonts
+
+    
+
