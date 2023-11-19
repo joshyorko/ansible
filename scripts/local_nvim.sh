@@ -83,7 +83,7 @@ M.ui = {
   theme_toggle = { "catppuccin", "one_light" },
   hl_override = highlights.override,
   hl_add = highlights.add,
-  transparency = true  -- Enable transparency
+  transparency = true  
 }
 EOF
 }
