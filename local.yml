@@ -46,6 +46,7 @@
       tags:
         - nvchad
         - personal
+        - fonts
     - import_tasks: tasks/fonts-setup.yaml
       tags:
         - fonts
