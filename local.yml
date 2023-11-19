@@ -42,11 +42,12 @@
       tags:
         - nvim
         - personal
+        
     - import_tasks: tasks/nvchad-setup.yaml
       tags:
         - nvchad
         - personal
-        - fonts
+
     - import_tasks: tasks/fonts-setup.yaml
       tags:
         - fonts
