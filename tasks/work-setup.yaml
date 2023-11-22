@@ -7,6 +7,7 @@
   ansible.builtin.git:
     repo: 'git@github.com:mygainwell/maui-data-integration.git'
     dest: "{{ work }}/repos"
+    accept_hostkey: yes
   tags:
     - work
 
@@ -14,6 +15,7 @@
   ansible.builtin.git:
     repo: 'git@github.com:mygainwell/SASI-Project.git'
     dest: "{{ work }}/repos"
+    accept_hostkey: yes
   tags: 
     - work
 
@@ -21,6 +23,7 @@
   ansible.builtin.git:
     repo: 'git@github.com:mygainwell/IronRipper3K.git'
     dest: "{{ work }}/repos"
+    accept_hostkey: yes
   tags:
     - work
 
