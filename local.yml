@@ -1,7 +1,9 @@
 - hosts: localhost
   vars:
-    source_key: "./.ssh/id_ed25519_personal"
-    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519_personal"
+    personal_source_key: "./.ssh/id_ed25519_personal"
+    personal_dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519_personal"
+    work_source_key: "./.ssh/id_ed25519_work" 
+    work_dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519_work"
     personal: "{{ lookup('env', 'HOME') }}/personal"
     work: "{{ lookup('env', 'HOME') }}/work"
   pre_tasks:

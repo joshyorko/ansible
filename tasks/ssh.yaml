@@ -20,10 +20,29 @@
     - install
     - ssh
 
-- name: Install ssh key
+- name: Install  Personal ssh key
   copy:
-    src: "{{ source_key }}"
-    dest: "{{ dest_key }}"
+    src: "{{ personal_source_key }}"
+    dest: "{{ personal_dest_key }}"
+    mode: 0600
+  tags:
+    - dotfiles
+    - install
+    - ssh
+- name: Install Personal ssh key public
+  copy:
+    src: "{{ personal_source_key }}.pub"
+    dest: "{{ personal_dest_key }}.pub"
+    mode: 0644
+  tags:
+    - dotfiles
+    - install
+    - ssh
+
+- name: Install  Work ssh key
+  copy:
+    src: "{{ work_source_key }}"
+    dest: "{{ work_dest_key }}"
     mode: 0600
   tags:
     - dotfiles
@@ -31,8 +50,8 @@
     - ssh
 - name: Install ssh key public
   copy:
-    src: "{{ source_key }}.pub"
-    dest: "{{ dest_key }}.pub"
+    src: "{{ work_source_key }}.pub"
+    dest: "{{ work_dest_key }}.pub"
     mode: 0644
   tags:
     - dotfiles
