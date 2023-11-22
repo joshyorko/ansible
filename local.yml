@@ -32,20 +32,18 @@
     - import_tasks: tasks/core-setup.yaml
       tags:
         - core
-        - work
         - personal
         - nvim
       
     - import_tasks: tasks/git-setup.yaml
       tags:
         - git
-        - work
+
         - personal
 
     - import_tasks: tasks/zsh-setup.yaml
       tags:
         - zsh
-        - work
         - personal
 
     - import_tasks: tasks/p10k-setup.yaml
@@ -65,7 +63,7 @@
     - import_tasks: tasks/fonts-setup.yaml
       tags:
         - fonts
-        - work
+
         - personal
 
     - import_tasks: tasks/personal-projects.yaml
