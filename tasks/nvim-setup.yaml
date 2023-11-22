@@ -7,18 +7,18 @@
 - name: Clone Neovim
   ansible.builtin.git:
     repo: 'https://github.com/neovim/neovim.git'
-    dest: "{{ lookup('env', 'HOME') }}/neovim"
-    version: 'stable' # Specify the stable branch or a specific release tag
+    dest: "{{ lookup('env', 'HOME') }}/neovim" # Specify the stable branch or a specific release tag
   tags:
     - install
     - neovim 
 
 
 - name: Build neovim
-  shell: "cd {{ lookup('env', 'HOME') }}/neovim && make -j 20"
+  shell: "cd {{ lookup('env', 'HOME') }}/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo -j 20"
   tags:
     - install
     - neovim
+
 
 - name: Install neovim
   become: true

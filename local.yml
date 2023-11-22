@@ -11,8 +11,9 @@
         update_cache: true
         state: present
       tags:
-        - install
         - work
+        - personal
+        - nvim
   tasks:
     - import_tasks: tasks/dotfile.yaml
       tags:
@@ -24,16 +25,20 @@
         - core
         - work
         - personal
+        - nvim
+      
     - import_tasks: tasks/git-setup.yaml
       tags:
         - git
         - work
         - personal
+
     - import_tasks: tasks/zsh-setup.yaml
       tags:
         - zsh
         - work
         - personal
+
     - import_tasks: tasks/p10k-setup.yaml
       tags:
         - p10k
@@ -53,6 +58,7 @@
         - fonts
         - work
         - personal
+
     - import_tasks: tasks/personal-projects.yaml
       tags:
         - personal-projects
