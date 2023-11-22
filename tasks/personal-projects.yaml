@@ -27,12 +27,7 @@
   tags:
     - ansible
 
-- name: Personal Project - work
-  ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/work.git'
-    dest: "{{ personal }}/work"
-  tags:
-    - work
+
 
 - name: Personal Project - openai_plugins
   ansible.builtin.git:

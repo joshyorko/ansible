@@ -1,0 +1,11 @@
+- name: Personal my_repos Exists!
+  stat:
+    path: "{{ work }}/repos"
+  register: my_repos
+  
+- name: Personal Project - work
+  ansible.builtin.git:
+    repo: 'https://github.com/joshyorko/work.git'
+    dest: "{{ work }}/repos"
+  tags:
+    - work
