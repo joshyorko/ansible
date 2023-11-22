@@ -14,18 +14,21 @@
         update_cache: true
         state: present
       tags:
-        - work
         - personal
         - nvim
+
   tasks:
+
     - import_tasks: tasks/dotfile.yaml
       tags:
         - dotfile
         - personal
+
     - import_tasks: tasks/ssh.yaml 
       tags:
         - ssh
         - personal
+
     - import_tasks: tasks/core-setup.yaml
       tags:
         - core
@@ -69,9 +72,10 @@
       tags:
         - personal-projects
         - personal
+        
     - import_tasks: tasks/work-setup.yaml
       tags:
-        - work-repos
+        - work
       
 
     
