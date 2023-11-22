@@ -1,11 +1,27 @@
-- name: Personal my_repos Exists!
+- name: Work Repo Exists!
   stat:
     path: "{{ work }}/repos"
   register: my_repos
   
-- name: Personal Project - work
+- name: Work - work
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/work.git'
+    repo: 'git@github.com:mygainwell/maui-data-integration.git'
     dest: "{{ work }}/repos"
   tags:
     - work
+
+- name: Work - SASI
+  ansible.builtin.git:
+    repo: 'git@github.com:mygainwell/SASI-Project.git'
+    dest: "{{ work }}/repos"
+  tags: 
+    - work
+
+- name: Work - IronRipper3K
+  ansible.builtin.git:
+    repo: 'git@github.com:mygainwell/IronRipper3K.git'
+    dest: "{{ work }}/repos"
+  tags:
+    - work
+
+

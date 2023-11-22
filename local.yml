@@ -20,7 +20,10 @@
       tags:
         - dotfile
         - personal
-      # - import_tasks: tasks/ssh.yaml 
+    - import_tasks: tasks/ssh.yaml 
+      tags:
+        - ssh
+        - personal
     - import_tasks: tasks/core-setup.yaml
       tags:
         - core
@@ -66,7 +69,7 @@
         - personal
     - import_tasks: tasks/work-setup.yaml
       tags:
-        - work
+        - work-repos
       
 
     
