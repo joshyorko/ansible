@@ -73,7 +73,7 @@
         
     - import_tasks: tasks/work-setup.yaml
       tags:
-        - work
+        - work-setups
       
 
     

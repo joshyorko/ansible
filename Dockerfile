@@ -19,7 +19,7 @@ RUN echo 'kdlocpanda ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 WORKDIR /home/kdlocpanda
 
 # Copy your Ansible playbook and related files into the Docker image
-COPY local.yml /home/kdlocpanda/local.yml
+COPY password.txt /home/kdlocpanda/password.txt
 
 
 # Switch to root user
