@@ -64,6 +64,10 @@
       tags:
         - personal-projects
         - personal
+    - import_tasks: tasks/work-setup.yaml
+      tags:
+        - work
+      
 
     
 
