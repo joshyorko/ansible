@@ -54,14 +54,14 @@
   tags: *tags_for_zsh_tasks
   set_fact:
     zshrc_functions: |
-      switch_to_personal() {
+      personal() {
         ssh-add -D
         ssh-add ~/.ssh/id_ed25519_personal
         git config --global user.email "joshua.yorko@gmail.com"
         echo "Switched to Personal SSH and Git Config."
       }
 
-      switch_to_work() {
+      work() {
         ssh-add -D
         ssh-add ~/.ssh/id_ed25519_work
         git config --global user.email "joshua.yorko@gainwelltechnologies.com"
