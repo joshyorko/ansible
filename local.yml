@@ -3,6 +3,7 @@
     source_key: "./.ssh/id_ed25519_personal"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519_personal"
     personal: "{{ lookup('env', 'HOME') }}/personal"
+    work: "{{ lookup('env', 'HOME') }}/work"
   pre_tasks:
     - name: Update Apt
       become: true

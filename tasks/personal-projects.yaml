@@ -1,7 +1,8 @@
-- name: my_repos exists
+- name: Personal my_repos Exists!
   stat:
     path: "{{ personal }}/my_repos"
   register: my_repos
+
 
 - name: Personal Project - template_streamlit
   ansible.builtin.git:

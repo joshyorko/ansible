@@ -16,9 +16,6 @@
     recursive: yes
     update: yes
     force: no
-    #accept_hostkey: yes
-
-
   tags:
     - install
     - dotfiles
