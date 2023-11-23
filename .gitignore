@@ -41,7 +41,7 @@ coverage.xml
 .env
 
 # IDEs / editors
-.vscode/
+
 .idea/
 *.swp
 *.swo
