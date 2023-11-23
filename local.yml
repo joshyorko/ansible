@@ -27,19 +27,19 @@
     - import_tasks: tasks/ssh.yaml 
       tags:
         - ssh
-        - personal
 
     - import_tasks: tasks/core-setup.yaml
       tags:
         - core
         - personal
+        - work
         - nvim
       
     - import_tasks: tasks/git-setup.yaml
       tags:
         - git
-
         - personal
+        - work
 
     - import_tasks: tasks/zsh-setup.yaml
       tags:
@@ -63,13 +63,11 @@
     - import_tasks: tasks/fonts-setup.yaml
       tags:
         - fonts
-
         - personal
 
     - import_tasks: tasks/personal-projects.yaml
       tags:
         - personal-projects
-        - personal
         
     - import_tasks: tasks/work-setup.yaml
       tags:
