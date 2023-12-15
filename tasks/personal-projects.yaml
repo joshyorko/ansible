@@ -9,26 +9,11 @@
   tags:
     - ssh
 
-- name: Setup SSH config
-  copy:
-    dest: "{{ lookup('env', 'HOME') }}/.ssh/config"
-    content: |
-      Host joshyorko.github.com
-        HostName github.com
-        User git
-        IdentityFile {{ personal_dest_key }}
-
-      Host jyorko.github.com
-        HostName github.com
-        User git
-        IdentityFile {{ work_dest_key }}
-  tags:
-    - ssh
 
 - name: Personal Project - template_streamlit
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/template_streamlit.git'
-    dest: "{{ personal }}/template_streamlit"
+    dest: "{{ personal }}/my_repos/template_streamlit"
   tags:
     - template_streamlit
 
@@ -37,14 +22,14 @@
 - name: Personal Project - forgpt
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/forgpt.git'
-    dest: "{{ personal }}/forgpt"
+    dest: "{{ personal }}/my_repos/forgpt"
   tags:
     - forgpt
 
 - name: Personal Project - ansible
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/ansible.git'
-    dest: "{{ personal }}/ansible"
+    dest: "{{ personal }}/my_repos/ansible"
   tags:
     - ansible
 
@@ -53,21 +38,21 @@
 - name: Personal Project - openai_plugins
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/openai_plugins.git'
-    dest: "{{ personal }}/openai_plugins"
+    dest: "{{ personal }}/my_repos/openai_plugins"
   tags:
     - openai_plugins
 
 - name: Personal Project - docusense
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/docusense.git'
-    dest: "{{ personal }}/docusense"
+    dest: "{{ personal }}/my_repos/docusense"
   tags:
     - docusense
 
 - name: Personal Project - docusense_2.0
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/docusense_2.0.git'
-    dest: "{{ personal }}/docusense_2.0"
+    dest: "{{ personal }}/my_repos/docusense_2.0"
   tags:
     - docusense_2.0
 
@@ -75,7 +60,7 @@
 - name: Personal Project - Mini-IronRipper
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/Mini-IronRipper.git'
-    dest: "{{ personal }}/Mini-IronRipper"
+    dest: "{{ personal }}/my_repos/Mini-IronRipper"
   tags:
     - Mini-IronRipper
 
@@ -84,7 +69,7 @@
 - name: Personal Project - yorko-resume
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/yorko-resume.git'
-    dest: "{{ personal }}/yorko-resume"
+    dest: "{{ personal }}/my_repos/yorko-resume"
   tags:
     - yorko-resume
 
@@ -92,7 +77,7 @@
 - name: Personal Project - company_datalake 
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/company_datalake.git'
-    dest: "{{ personal }}/company_datalake"
+    dest: "{{ personal }}/my_repos/company_datalake"
   tags: 
     - company_datalake
 
@@ -100,7 +85,7 @@
   become_user: kdlocpanda
   ansible.builtin.git:
     repo: 'git@github.com:joshyorko/socialscrape_web_app.git'
-    dest: "{{ personal }}/socialscrape_web_app"
+    dest: "{{ personal }}/my_repos/socialscrape_web_app"
     accept_hostkey: yes
   tags: 
     - socialscrape_web_app
@@ -108,7 +93,7 @@
 - name: Personal Project - networkLogsscrape
   ansible.builtin.git:
     repo: 'git@github.com:joshyorko/networkLogsscrape.git'
-    dest: "{{ personal }}/networkLogsscrape"
+    dest: "{{ personal }}/my_repos/networkLogsscrape"
     accept_hostkey: yes
   tags:     
     - networkLogsscrape-ssh
@@ -116,7 +101,7 @@
 - name: Personal Project - josh_bot
   ansible.builtin.git:
     repo: 'git@github.com:joshyorko/josh_bot.git'
-    dest: "{{ personal }}/josh_bot"
+    dest: "{{ personal }}/my_repos/josh_bot"
     accept_hostkey: yes
   tags:     
     - josh_bot
