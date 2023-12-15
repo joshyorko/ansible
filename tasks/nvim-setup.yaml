@@ -44,7 +44,3 @@
     repo: 'https://github.com/github/copilot.vim.git'
     dest: '~/.vim/pack/github/start/copilot.vim'
     clone: yes
-
-- name: Install LunarVim
-  become: true
-  become_user: kdlocpanda
