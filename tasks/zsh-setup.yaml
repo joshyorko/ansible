@@ -55,9 +55,9 @@
   set_fact:
     zshrc_functions: |
 
-      alias ls="colorls"
-      alias ll="colorls -al"
-      alias lt="colorls --tree=3"
+      #alias ls="colorls"
+      #alias ll="colorls -al"
+      #alias lt="colorls --tree=3"
       personal() {
         ssh-add -D
         ssh-add ~/.ssh/id_ed25519_personal

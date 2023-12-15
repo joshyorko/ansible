@@ -2,7 +2,28 @@
   stat:
     path: "{{ personal }}/my_repos"
   register: my_repos
+  
+- name: Start ssh-agent
+  become: true
+  shell: eval "$(ssh-agent -s)"
+  tags:
+    - ssh
 
+- name: Setup SSH config
+  copy:
+    dest: "{{ lookup('env', 'HOME') }}/.ssh/config"
+    content: |
+      Host personal.github.com
+        HostName github.com
+        User git
+        IdentityFile {{ personal_dest_key }}
+
+      Host work.github.com
+        HostName github.com
+        User git
+        IdentityFile {{ work_dest_key }}
+  tags:
+    - ssh
 
 - name: Personal Project - template_streamlit
   ansible.builtin.git:
@@ -76,8 +97,9 @@
     - company_datalake
 
 - name: Personal Project - socialscrape_web_app
+  become_user: kdlocpanda
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/socialscrape_web_app.git'
+    repo: 'git@github.com:joshyorko/socialscrape_web_app.git'
     dest: "{{ personal }}/socialscrape_web_app"
   tags: 
     - socialscrape_web_app

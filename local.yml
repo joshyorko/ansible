@@ -57,12 +57,12 @@
     - import_tasks: tasks/nvim-setup.yaml
       tags:
         - nvim
-        - personal
+      
         
     - import_tasks: tasks/nvchad-setup.yaml
       tags:
         - nvchad
-        - personal
+  
 
     - import_tasks: tasks/fonts-setup.yaml
       tags:
@@ -72,7 +72,7 @@
     - import_tasks: tasks/personal-projects.yaml
       tags:
         - personal-projects
-        - personal
+ 
         
     - import_tasks: tasks/work-setup.yaml
       tags:
