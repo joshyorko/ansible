@@ -109,6 +109,7 @@
               echo "🚫 No directory selected."
           fi
       }
+      export PATH=/home/kdlocpanda/.local/bin:$PATH
 
 
 
