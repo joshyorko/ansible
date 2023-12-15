@@ -81,5 +81,10 @@
     dest: "{{ personal }}/socialscrape_web_app"
   tags: 
     - socialscrape_web_app
-    
 
+- name: Personal Project - networkLogsscrape
+  ansible.builtin.git:
+    repo: 'git@github.com:joshyorko/networkLogsscrape.git'
+    dest: "{{ personal }}/networkLogsscrape"
+  tags:     
+    - networkLogsscrape-ssh
