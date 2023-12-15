@@ -1,30 +1,29 @@
-- name: Work Repo Exists!
+- name:  work_repos Exists!
   stat:
-    path: "{{ work }}/repos"
-  register: repos
+    path: "{{ work }}/work_repos"
+  register: work_repos
   
-- name: Work - work
+  
+- name: Work - MAUI
   ansible.builtin.git:
     repo: 'git@github.com:mygainwell/maui-data-integration.git'
-    dest: "{{ repos }}/maui-data-integration"
+    dest: "{{ work }}/work_repos/maui-data-integration"
     accept_hostkey: yes
   tags:
-    - work
+    - maui-data-integration
 
 - name: Work - SASI
   ansible.builtin.git:
     repo: 'git@github.com:mygainwell/SASI-Project.git'
-    dest: "{{ repos }}/SASI-Project"
+    dest: "{{ work }}/work_repos/SASI-Project"
     accept_hostkey: yes
-  tags: 
-    - work
+  tags:
+    - SASI-Project
 
 - name: Work - IronRipper3K
   ansible.builtin.git:
     repo: 'git@github.com:mygainwell/IronRipper3K.git'
-    dest: "{{ repos }}/IronRipper3K"
-    accept_hostkey:
+    dest: "{{ work }}/work_repos/IronRipper3K"
+    accept_hostkey: yes
   tags:
-    - work
-
-
+    - IronRipper3K

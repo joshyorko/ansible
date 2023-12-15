@@ -15,6 +15,7 @@
         state: present
       tags:
         - personal
+        - work
         - nvim
 
   tasks:
@@ -23,32 +24,26 @@
       tags:
         - dotfile
         - personal
-        - work
+    
 
     - import_tasks: tasks/ssh.yaml 
       tags:
         - ssh
         - personal
-        - work
+
 
     - import_tasks: tasks/core-setup.yaml
       tags:
         - core
         - personal
-        - work
-        - nvim
-      
-    - import_tasks: tasks/git-setup.yaml
-      tags:
-        - git
-        - personal
-        - work
+
+    
 
     - import_tasks: tasks/zsh-setup.yaml
       tags:
         - zsh
         - personal
-        - work
+    
 
     - import_tasks: tasks/p10k-setup.yaml
       tags:
@@ -57,11 +52,13 @@
     - import_tasks: tasks/nvim-setup.yaml
       tags:
         - nvim
+        - personal
       
         
     - import_tasks: tasks/nvchad-setup.yaml
       tags:
         - nvchad
+        - personal
   
 
     - import_tasks: tasks/fonts-setup.yaml
@@ -71,13 +68,14 @@
 
     - import_tasks: tasks/personal-projects.yaml
       tags:
+
         - personal-projects
  
         
     - import_tasks: tasks/work-setup.yaml
       tags:
         - work-projects
-        - work
+    
       
 
     

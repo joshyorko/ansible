@@ -26,3 +26,25 @@
   tags:
     - install
     - neovim
+
+- name: Install NvChad
+  become: true
+  become_user: kdlocpanda
+  git:
+    repo: 'https://github.com/NvChad/NvChad.git'
+    dest: '~/.config/nvim'
+    clone: yes
+    update: yes
+    depth: 1
+
+- name: Clone GitHub Copilot Plugin Repository
+  become: true
+  become_user: kdlocpanda
+  git:
+    repo: 'https://github.com/github/copilot.vim.git'
+    dest: '~/.vim/pack/github/start/copilot.vim'
+    clone: yes
+
+- name: Install LunarVim
+  become: true
+  become_user: kdlocpanda
