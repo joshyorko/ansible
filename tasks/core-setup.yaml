@@ -10,7 +10,7 @@
 - name: Install System Packages 2 (lua, libtool, libtool-bin, gettext,unzip)
   become: true
   apt:
-    name: ["lua5.1", "libtool", "libtool-bin", "gettext","unzip"]
+    name: ["lua5.1", "libtool", "libtool-bin", "gettext","unzip","curl"]
   tags:
     - install
     - neovim
@@ -26,18 +26,18 @@
     - neovim
 
 
-#- name: Install Node.js and npm
-#  become: true
-#  block:
-#    - name: Add NodeSource distributions for Node.js 16
-#      shell: "curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -"
-#    - name: Install Node.js and npm
-#      apt:
-#        name: ["nodejs"]
-#        state: present
-#  tags:
-#    - install
-#    - core
+- name: Install Node.js and npm
+  become: true
+  block:
+    - name: Add NodeSource distributions for Node.js 16
+      shell: "curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -"
+    - name: Install Node.js and npm
+      apt:
+        name: ["nodejs"]
+        state: present
+  tags:
+    - install
+    - core
 
 
 - name: Install Python3 and venv for virtual environment creation

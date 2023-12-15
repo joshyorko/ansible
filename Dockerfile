@@ -18,23 +18,18 @@ RUN echo 'kdlocpanda ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 WORKDIR /home/kdlocpanda
 
-# Copy your Ansible playbook and related files into the Docker image
 COPY . .
 
 
-# Switch to root user
 USER root
 
-# Change ownership of the files to kdlocpanda
 RUN chown -R kdlocpanda:kdlocpanda /home/kdlocpanda
 
-# Switch back to kdlocpanda user
 USER kdlocpanda
 
 
 
 
-# Uncomment if you want to run your Ansible playbook during the build
 #RUN ansible-pull -U https://github.com/joshyorko/ansible.git --vault-password-file password.txt
 
 ENTRYPOINT ["/bin/bash"]
