@@ -68,3 +68,18 @@
     - yorko-resume
 
 
+- name: Personal Project - company_datalake 
+  ansible.builtin.git:
+    repo: 'https://github.com/joshyorko/company_datalake.git'
+    dest: "{{ personal }}/company_datalake"
+  tags: 
+    - company_datalake
+
+- name: Personal Project - socialscrape_web_app
+  ansible.builtin.git:
+    repo: 'https://github.com/joshyorko/socialscrape_web_app.git'
+    dest: "{{ personal }}/socialscrape_web_app"
+  tags: 
+    - socialscrape_web_app
+    
+
