@@ -2,6 +2,6 @@
     "name": "🚀 Josh Ansible Setup 🛠️",
     "dockerFile": "Dockerfile",
     "forwardPorts": [3000],
-    "postCreateCommand": "ansible-pull -U https://github.com/joshyorko/ansible.git --tags 'personal' && echo '🎉 Welcome to your development container 🎉'"
+    "postCreateCommand": "ansible-pull -U https://github.com/joshyorko/ansible.git --vault-password-file password.txt  && echo '🎉 Welcome to your development container 🎉'"
 }
 

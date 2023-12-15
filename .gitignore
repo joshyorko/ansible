@@ -33,7 +33,7 @@ coverage.xml
 
 # Jupyter Notebook
 .ipynb_checkpoints
-
+password.txt
 # pyenv
 .python-version
 
