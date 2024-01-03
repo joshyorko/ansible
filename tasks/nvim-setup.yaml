@@ -29,7 +29,7 @@
 
 - name: Install NvChad
   become: true
-  become_user: kdlocpanda
+  become_user: jyorko
   git:
     repo: 'https://github.com/NvChad/NvChad.git'
     dest: '~/.config/nvim'
@@ -39,7 +39,7 @@
 
 - name: Clone GitHub Copilot Plugin Repository
   become: true
-  become_user: kdlocpanda
+  become_user: jyorko
   git:
     repo: 'https://github.com/github/copilot.vim.git'
     dest: '~/.vim/pack/github/start/copilot.vim'

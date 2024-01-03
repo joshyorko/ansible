@@ -12,8 +12,8 @@
   become: true
   file:
     path: "{{ lookup('env', 'HOME') }}/.ssh"
-    owner: kdlocpanda
-    group: kdlocpanda
+    owner: jyorko
+    group: jyorko
     recurse: yes
   tags:
     - dotfiles

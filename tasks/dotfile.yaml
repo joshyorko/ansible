@@ -9,10 +9,10 @@
 
 - name: Cloning .dotfiles
   become: true
-  become_user: kdlocpanda
+  become_user: jyorko
   ansible.builtin.git:
     repo: 'https://github.com/joshyorko/.dotfiles.git'
-    dest: "/home/kdlocpanda/.dotfiles"
+    dest: "/home/jyorko/.dotfiles"
     recursive: yes
     update: yes
     force: no
@@ -23,7 +23,7 @@
 
 - name: Stow dotfiles
   become: true
-  become_user: kdlocpanda
+  become_user: jyorko
   ansible.builtin.shell: cd $HOME/.dotfiles
   tags:
     - install
