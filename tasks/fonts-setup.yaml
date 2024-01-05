@@ -1,6 +1,6 @@
 - name: Create font directory
   become: true
-  become_user: jyorko
+  become_user: kdlocpanda
   file:
     path: "{{ ansible_env.HOME }}/.local/share/fonts"
     state: directory
@@ -11,7 +11,7 @@
 
 - name: Download MesloLGS NF fonts
   become: true
-  become_user: jyorko
+  become_user: kdlocpanda
   get_url:
     url: "{{ item.url }}"
     dest: "{{ ansible_env.HOME }}/.local/share/fonts/{{ item.file }}"
@@ -24,7 +24,7 @@
 
 - name: Download JetBrains Mono Nerd Font
   become: true
-  become_user: jyorko
+  become_user: kdlocpanda
   get_url:
     url: "{{ item.url }}"
     dest: "{{ ansible_env.HOME }}/.local/share/fonts/{{ item.file }}"

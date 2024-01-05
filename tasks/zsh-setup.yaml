@@ -13,7 +13,7 @@
 
 - name: Check that the .oh-my-zsh exists
   stat:
-    path: /home/jyorko/.oh-my-zsh
+    path: /home/kdlocpanda/.oh-my-zsh
   register: oh_my_stats
   tags: *tags_for_zsh_tasks
 
@@ -22,14 +22,14 @@
   become: true
   tags: *tags_for_zsh_tasks
   when: oh_my_stats.stat.exists == False
-  become_user: jyorko
+  become_user: kdlocpanda
 
 - name: Install zsh-autosuggestions
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
     dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
   become: true
-  become_user: jyorko
+  become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
 - name: Install zsh-syntax-highlighting
@@ -37,17 +37,17 @@
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
     dest: "~/.oh-my-zsh/plugins/zsh-syntax-highlighting"
   become: true
-  become_user: jyorko
+  become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
 - name: Add Plugins to .zshrc
   lineinfile:
-    path: /home/jyorko/.zshrc
+    path: /home/kdlocpanda/.zshrc
     regexp: '^plugins=.*'
     line: 'plugins=(ansible git python zsh-autosuggestions zsh-syntax-highlighting)'
     create: yes
   become: true
-  become_user: jyorko
+  become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
 - name: Define functions for .zshrc
@@ -153,30 +153,30 @@
 
 - name: Add functions to .zshrc
   lineinfile:
-    path: /home/jyorko/.zshrc
+    path: /home/kdlocpanda/.zshrc
     line: "{{ zshrc_functions }}"
     create: yes
   become: true
-  become_user: jyorko
+  become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
 
 - name: Set ZSH as default shell in .bashrc
   lineinfile:
-    path: /home/jyorko/.bashrc
+    path: /home/kdlocpanda/.bashrc
     line: 'exec zsh'
     create: yes
   become: true
-  become_user: jyorko
+  become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
 - name: Set ZSH as default shell in .bash_profile
   lineinfile:
-    path: /home/jyorko/.bash_profile
+    path: /home/kdlocpanda/.bash_profile
     line: 'exec zsh'
     create: yes
   become: true
-  become_user: jyorko
+  become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
 
