@@ -130,7 +130,7 @@
             esac
 
             echo "Running model with prompt: $prompt"
-            bash -c "$MODEL_DIR/$model_name   --temp $temp  -p \"[INST]$prompt\[/INST]\" --log-disable"
+            bash -c "$MODEL_DIR/$model_name --ngl 5   --temp $temp  -p \"[INST]$prompt\[/INST]\" --log-disable"
             echo "Model run completed"
         }
         MODEL_DIR="/home/kdlocpanda/personal/models"
@@ -145,8 +145,11 @@
                 *) echo "Unknown model alias: $model_alias"; return 1 ;;
             esac
 
-            bash -c "$MODEL_DIR/$model_name"
+            bash -c "$MODEL_DIR/$model_name" --ngl 5
         }
+        if [ -z "$SSH_AUTH_SOCK" ]; then
+          eval `ssh-agent -s`
+        fi
 
 
 
