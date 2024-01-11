@@ -8,7 +8,7 @@
 
 - name: Personal Project - template_streamlit
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/template_streamlit.git'
+    repo: 'git@github.com:joshyorko/template_streamlit.git'
     dest: "{{ personal }}/my_repos/template_streamlit"
   tags:
     - template_streamlit
@@ -16,7 +16,7 @@
 
 - name: Personal Project - forgpt
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/forgpt.git'
+    repo: 'git@github.com:joshyorko/forgpt.git'
     dest: "{{ personal }}/my_repos/forgpt"
   tags:
     - forgpt
@@ -24,7 +24,7 @@
 
 - name: Personal Project - ansible
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/ansible.git'
+    repo: 'git@github.com:joshyorko/ansible.git'
     dest: "{{ personal }}/my_repos/ansible"
   tags:
     - ansible
@@ -32,7 +32,7 @@
 
 - name: Personal Project - openai_plugins
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/openai_plugins.git'
+    repo: 'git@github.com:joshyorko/openai_plugins.git'
     dest: "{{ personal }}/my_repos/openai_plugins"
   tags:
     - openai_plugins
@@ -40,7 +40,7 @@
 
 - name: Personal Project - docusense
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/docusense.git'
+    repo: 'git@github.com:joshyorko/docusense.git'
     dest: "{{ personal }}/my_repos/docusense"
   tags:
     - docusense
@@ -48,7 +48,7 @@
 
 - name: Personal Project - docusense_2.0
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/docusense_2.0.git'
+    repo: 'git@github.com:joshyorko/docusense_2.0.git'
     dest: "{{ personal }}/my_repos/docusense_2.0"
   tags:
     - docusense_2.0
@@ -56,7 +56,7 @@
 
 - name: Personal Project - Mini-IronRipper
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/Mini-IronRipper.git'
+    repo: 'git@github.com:joshyorko/Mini-IronRipper.git'
     dest: "{{ personal }}/my_repos/Mini-IronRipper"
   tags:
     - Mini-IronRipper
@@ -64,7 +64,7 @@
 
 - name: Personal Project - yorko-resume
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/yorko-resume.git'
+    repo: 'git@github.com:joshyorko/yorko-resume.git'
     dest: "{{ personal }}/my_repos/yorko-resume"
   tags:
     - yorko-resume
@@ -72,7 +72,7 @@
 
 - name: Personal Project - company_datalake 
   ansible.builtin.git:
-    repo: 'https://github.com/joshyorko/company_datalake.git'
+    repo: 'git@github.com:joshyorko/company_datalake.git'
     dest: "{{ personal }}/my_repos/company_datalake"
   tags: 
     - company_datalake
