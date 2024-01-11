@@ -30,11 +30,9 @@
         - core
 
     - name: Setup NVim and NVChad
-      block:
-        - import_tasks: tasks/nvim-setup.yaml
-          tags:
-            - nvim
-      when: "'core' in tags"
+    - import_tasks: tasks/nvim-setup.yaml
+        tags:
+          - nvim
 
     - name: Setup Personal Projects
       import_tasks: tasks/personal-projects.yaml
