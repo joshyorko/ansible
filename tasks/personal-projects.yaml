@@ -2,13 +2,6 @@
   stat:
     path: "{{ personal }}/my_repos"
   register: my_repos
-  
-- name: Start ssh-agent
-  become: true
-  shell: eval "$(ssh-agent -s)"
-  tags:
-    - ssh
-
 
 - name: Personal Project - template_streamlit
   ansible.builtin.git:
