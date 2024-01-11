@@ -38,12 +38,10 @@
 
     - name: Setup Personal Projects
       import_tasks: tasks/personal-projects.yaml
-      when: "'ssh' in tags"
       tags:
         - personal-projects
 
     - name: Setup Work Projects
       import_tasks: tasks/work-setup.yaml
-      when: "'ssh' in tags"
       tags:
         - work-projects
