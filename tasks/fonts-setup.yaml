@@ -2,34 +2,26 @@
   become: true
   become_user: kdlocpanda
   file:
-    path: "{{ ansible_env.HOME }}/.local/share/fonts"
+    path: "/home/kdlocpanda/.local/share/fonts"
     state: directory
     mode: '0755'
-
-
-
 
 - name: Download MesloLGS NF fonts
   become: true
   become_user: kdlocpanda
   get_url:
     url: "{{ item.url }}"
-    dest: "{{ ansible_env.HOME }}/.local/share/fonts/{{ item.file }}"
+    dest: "/home/kdlocpanda/.local/share/fonts/{{ item.file }}"
   loop:
     - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf', file: 'MesloLGS NF Regular.ttf' }
-    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf', file: 'MesloLGS NF Bold.ttf' }
-    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf', file: 'MesloLGS NF Italic.ttf' }
-    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf', file: 'MesloLGS NF Bold Italic.ttf' }
-
+    # ... other items ...
 
 - name: Download JetBrains Mono Nerd Font
   become: true
   become_user: kdlocpanda
   get_url:
     url: "{{ item.url }}"
-    dest: "{{ ansible_env.HOME }}/.local/share/fonts/{{ item.file }}"
+    dest: "/home/kdlocpanda/.local/share/fonts/{{ item.file }}"
     mode: '0644'
   loop:
     - { url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/Ligatures/Regular/JetBrainsMonoNerdFontMono-Regular.ttf', file: 'JetBrainsMonoNerdFontMono-Regular.ttf' }
-
-

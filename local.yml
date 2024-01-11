@@ -19,69 +19,35 @@
         - nvim
 
   tasks:
-
-    - import_tasks: tasks/dotfile.yaml
-      tags:
-        - dotfile
-        - personal
-    
-
-    - import_tasks: tasks/ssh.yaml 
+    - name: Setup SSH
+      import_tasks: tasks/ssh.yaml
       tags:
         - ssh
-        - personal
 
-
-    - import_tasks: tasks/core-setup.yaml
+    - name: Core Setup
+      import_tasks: tasks/core-setup.yaml
       tags:
         - core
-        - personal
 
-    
+    - name: Setup NVim and NVChad
+      block:
+        - import_tasks: tasks/nvim-setup.yaml
+          tags:
+            - nvim
 
-    - import_tasks: tasks/zsh-setup.yaml
+        - import_tasks: tasks/nvchad-setup.yaml
+          tags:
+            - nvchad
+      when: "'core' in tags"
+
+    - name: Setup Personal Projects
+      import_tasks: tasks/personal-projects.yaml
+      when: "'ssh' in tags"
       tags:
-        - zsh
-        - personal
-    
-
-    - import_tasks: tasks/p10k-setup.yaml
-      tags:
-        - p10k
-
-    - import_tasks: tasks/nvim-setup.yaml
-      tags:
-        - nvim
-        - personal
-      
-        
-    - import_tasks: tasks/nvchad-setup.yaml
-      tags:
-        - nvchad
-        - personal
-  
-
-    - import_tasks: tasks/fonts-setup.yaml
-      tags:
-        - fonts
-        - personal
-
-    - import_tasks: tasks/personal-projects.yaml
-      tags:
-
         - personal-projects
- 
-        
-    - import_tasks: tasks/work-setup.yaml
+
+    - name: Setup Work Projects
+      import_tasks: tasks/work-setup.yaml
+      when: "'ssh' in tags"
       tags:
         - work-projects
-        
-    - import_tasks: tasks/chrome-vscode-setup.yaml
-      tags:
-        - chrome-vscode
-        
-    
-      
-
-    
-
