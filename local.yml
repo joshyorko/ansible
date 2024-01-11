@@ -34,10 +34,6 @@
         - import_tasks: tasks/nvim-setup.yaml
           tags:
             - nvim
-
-        - import_tasks: tasks/nvchad-setup.yaml
-          tags:
-            - nvchad
       when: "'core' in tags"
 
     - name: Setup Personal Projects

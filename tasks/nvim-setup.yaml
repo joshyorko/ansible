@@ -37,10 +37,4 @@
     update: yes
     depth: 1
 
-- name: Clone GitHub Copilot Plugin Repository
-  become: true
-  become_user: kdlocpanda
-  git:
-    repo: 'https://github.com/github/copilot.vim.git'
-    dest: '~/.vim/pack/github/start/copilot.vim'
-    clone: yes
+
