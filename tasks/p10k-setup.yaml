@@ -9,17 +9,18 @@
 - name: Clone Powerlevel10k for Oh My Zsh
   git:
     repo: 'https://github.com/romkatv/powerlevel10k.git'
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/powerlevel10k"
+    dest: "/home/kdlocpanda/.oh-my-zsh/custom/themes/powerlevel10k"
     clone: yes
     update: yes
     depth: 1
+  become: true
+  become_user: kdlocpanda
 
 - name: Set Powerlevel10k as the Zsh theme in .zshrc
   lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
+    path: "/home/kdlocpanda/.zshrc"
     regexp: '^ZSH_THEME=.*'
     line: 'ZSH_THEME="powerlevel10k/powerlevel10k"'
     create: yes
   become: true
   become_user: kdlocpanda
-
