@@ -1,13 +1,13 @@
 - name: Install ZSH
-  block:
-    - apt:
-        name: zsh
+  apt:
+    name: zsh
   become: true
-  tags: &tags_for_zsh_tasks ['zsh','personal','work' ]
+  tags: &tags_for_zsh_tasks ['zsh','personal','work']
 
-- name: Change shell to zsh
-  block:
-    - shell: chsh -s $(which zsh)
+- name: Change shell to zsh for kdlocpanda
+  user:
+    name: kdlocpanda
+    shell: /bin/zsh
   become: true
   tags: *tags_for_zsh_tasks
 
@@ -17,17 +17,17 @@
   register: oh_my_stats
   tags: *tags_for_zsh_tasks
 
-- name: Oh-My-Zsh
-  shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh > ~/.oh-my-installer && chmod +x ~/.oh-my-installer && ~/.oh-my-installer
+- name: Install Oh-My-Zsh
+  shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
   become: true
-  tags: *tags_for_zsh_tasks
-  when: oh_my_stats.stat.exists == False
   become_user: kdlocpanda
+  when: oh_my_stats.stat.exists == False
+  tags: *tags_for_zsh_tasks
 
 - name: Install zsh-autosuggestions
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
-    dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
+    dest: /home/kdlocpanda/.oh-my-zsh/plugins/zsh-autosuggestions
   become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
@@ -35,7 +35,7 @@
 - name: Install zsh-syntax-highlighting
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-    dest: "~/.oh-my-zsh/plugins/zsh-syntax-highlighting"
+    dest: /home/kdlocpanda/.oh-my-zsh/plugins/zsh-syntax-highlighting
   become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
@@ -43,17 +43,17 @@
 - name: Add Plugins to .zshrc
   lineinfile:
     path: /home/kdlocpanda/.zshrc
-    regexp: '^plugins=.*'
+    regexp: '^plugins=\(.*\)'
     line: 'plugins=(ansible git python zsh-autosuggestions zsh-syntax-highlighting)'
+    backrefs: yes
     create: yes
   become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
 - name: Define functions for .zshrc
-  tags: *tags_for_zsh_tasks
   set_fact:
-    zshrc_functions: |
+      zshrc_functions: |
 
       #alias ls="colorls"
       #alias ll="colorls -al"
@@ -150,36 +150,15 @@
         if [ -z "$SSH_AUTH_SOCK" ]; then
           eval `ssh-agent -s`
         fi
-
-
-
+      # Your zshrc functions here
+  tags: *tags_for_zsh_tasks
 
 - name: Add functions to .zshrc
-  lineinfile:
+  blockinfile:
     path: /home/kdlocpanda/.zshrc
-    line: "{{ zshrc_functions }}"
+    block: "{{ zshrc_functions }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
     create: yes
   become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
-
-
-- name: Set ZSH as default shell in .bashrc
-  lineinfile:
-    path: /home/kdlocpanda/.bashrc
-    line: 'exec zsh'
-    create: yes
-  become: true
-  become_user: kdlocpanda
-  tags: *tags_for_zsh_tasks
-
-- name: Set ZSH as default shell in .bash_profile
-  lineinfile:
-    path: /home/kdlocpanda/.bash_profile
-    line: 'exec zsh'
-    create: yes
-  become: true
-  become_user: kdlocpanda
-  tags: *tags_for_zsh_tasks
-
-
