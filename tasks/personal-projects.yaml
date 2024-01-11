@@ -2,6 +2,8 @@
   stat:
     path: "{{ personal }}/my_repos"
   register: my_repos
+  tags:
+    - ssh
 
 - name: Personal Project - template_streamlit
   ansible.builtin.git:
@@ -9,8 +11,7 @@
     dest: "{{ personal }}/my_repos/template_streamlit"
   tags:
     - template_streamlit
-
-
+    - ssh
 
 - name: Personal Project - forgpt
   ansible.builtin.git:
@@ -18,6 +19,7 @@
     dest: "{{ personal }}/my_repos/forgpt"
   tags:
     - forgpt
+    - ssh
 
 - name: Personal Project - ansible
   ansible.builtin.git:
@@ -25,8 +27,7 @@
     dest: "{{ personal }}/my_repos/ansible"
   tags:
     - ansible
-
-
+    - ssh
 
 - name: Personal Project - openai_plugins
   ansible.builtin.git:
@@ -34,6 +35,7 @@
     dest: "{{ personal }}/my_repos/openai_plugins"
   tags:
     - openai_plugins
+    - ssh
 
 - name: Personal Project - docusense
   ansible.builtin.git:
@@ -41,6 +43,7 @@
     dest: "{{ personal }}/my_repos/docusense"
   tags:
     - docusense
+    - ssh
 
 - name: Personal Project - docusense_2.0
   ansible.builtin.git:
@@ -48,7 +51,7 @@
     dest: "{{ personal }}/my_repos/docusense_2.0"
   tags:
     - docusense_2.0
-
+    - ssh
 
 - name: Personal Project - Mini-IronRipper
   ansible.builtin.git:
@@ -56,8 +59,7 @@
     dest: "{{ personal }}/my_repos/Mini-IronRipper"
   tags:
     - Mini-IronRipper
-
-
+    - ssh
 
 - name: Personal Project - yorko-resume
   ansible.builtin.git:
@@ -65,7 +67,7 @@
     dest: "{{ personal }}/my_repos/yorko-resume"
   tags:
     - yorko-resume
-
+    - ssh
 
 - name: Personal Project - company_datalake 
   ansible.builtin.git:
@@ -73,6 +75,7 @@
     dest: "{{ personal }}/my_repos/company_datalake"
   tags: 
     - company_datalake
+    - ssh
 
 - name: Personal Project - socialscrape_web_app
   become_user: kdlocpanda
@@ -82,6 +85,7 @@
     accept_hostkey: yes
   tags: 
     - socialscrape_web_app
+    - ssh
 
 - name: Personal Project - networkLogsscrape
   ansible.builtin.git:
@@ -90,6 +94,7 @@
     accept_hostkey: yes
   tags:     
     - networkLogsscrape-ssh
+    - ssh
 
 - name: Personal Project - josh_bot
   ansible.builtin.git:
@@ -98,3 +103,4 @@
     accept_hostkey: yes
   tags:     
     - josh_bot
+    - ssh
