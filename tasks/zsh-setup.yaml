@@ -55,17 +55,3 @@
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
 
-- name: Add Plugins to .zshrc
-  lineinfile:
-    path: /home/kdlocpanda/.zshrc
-    regexp: '^plugins=\(.*\)'
-    line: 'plugins=(ansible git python zsh-autosuggestions zsh-syntax-highlighting)'
-    backrefs: yes
-    create: yes
-  become: true
-  become_user: kdlocpanda
-  tags: *tags_for_zsh_tasks
-
-
-
-
