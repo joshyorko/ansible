@@ -1,173 +1,173 @@
 
-  - name: Uninstall ZSH
-    apt:
-      name: zsh
-      state: absent
-    become: true
-    tags: &tags_for_zsh_tasks ['zsh', 'personal', 'work']
-  - name: Remove Oh-My-Zsh directory
-    file:
-      path: /home/kdlocpanda/.oh-my-zsh
-      state: absent
-    become: true
-    become_user: kdlocpanda
-    tags: *tags_for_zsh_tasks
-  - name: Remove .zshrc configuration file
-    file:
-      path: /home/kdlocpanda/.zshrc
-      state: absent
-    become: true
-    become_user: kdlocpanda
-    tags: *tags_for_zsh_tasks
-  - name: Install ZSH
-    apt:
-      name: zsh
-    become: true
-    tags: *tags_for_zsh_tasks
-  - name: Change shell to zsh for kdlocpanda
-    user:
-      name: kdlocpanda
-      shell: /bin/zsh
-    become: true
-    tags: *tags_for_zsh_tasks
-  - name: Check that the .oh-my-zsh exists
-    stat:
-      path: /home/kdlocpanda/.oh-my-zsh
-    register: oh_my_stats
-    tags: *tags_for_zsh_tasks
-  - name: Install Oh-My-Zsh
-    shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-    become: true
-    become_user: kdlocpanda
-    when: oh_my_stats.stat.exists == False
-    tags: *tags_for_zsh_tasks
-  - name: Install zsh-autosuggestions
-    ansible.builtin.git:
-      repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
-      dest: /home/kdlocpanda/.oh-my-zsh/plugins/zsh-autosuggestions
-    become: true
-    become_user: kdlocpanda
-    tags: *tags_for_zsh_tasks
-  - name: Install zsh-syntax-highlighting
-    ansible.builtin.git:
-      repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-      dest: /home/kdlocpanda/.oh-my-zsh/plugins/zsh-syntax-highlighting
-    become: true
-    become_user: kdlocpanda
-    tags: *tags_for_zsh_tasks
-  - name: Add Plugins to .zshrc
-    lineinfile:
-      path: /home/kdlocpanda/.zshrc
-      regexp: '^plugins=\(.*\)'
-      line: 'plugins=(ansible git python zsh-autosuggestions zsh-syntax-highlighting)'
-      backrefs: yes
-      create: yes
-    become: true
-    become_user: kdlocpanda
-    tags: *tags_for_zsh_tasks
-  - name: Define functions for .zshrc
-    set_fact:
-        zshrc_functions: |
-    
-            personal() {
-              ssh-add -D
-              ssh-add ~/.ssh/id_ed25519_personal
-              git config --global user.email "joshua.yorko@gmail.com"
-              echo "Switched to Personal SSH and Git Config."
-            }
-    
-            work() {
-              ssh-add -D
-              ssh-add ~/.ssh/id_ed25519_work
-            
-              git config --global user.name "Josh Yorko"
-              git config --global user.email "joshua.yorko@gainwelltechnologies.com"
-              echo "Switched to Work SSH and Git Config."
-            }
-    
-            edir() {
-                local search_term=$1
-                local editor_option=$2
-    
-                # Check if a search term is provided
-                if [ -z "$search_term" ]; then
-                    echo "❌ Provide a search term."
-                    return 1
-                fi
-    
-                # Check for required tool: fzf
-                if ! command -v fzf >/dev/null 2>&1; then
-                    echo "❌ Install 'fzf'."
-                    return 1
-                fi
-    
-                # Find directories matching the search term and select one using fzf
-                local selected_dir=$(find ~ ~/projects -type d -iname "*$search_term*" 2>/dev/null | fzf --prompt="Select a directory: ")
-    
-                # Check if a directory was selected
-                if [ -n "$selected_dir" ]; then
-                    case $editor_option in
-                        -c) 
-                            if command -v code >/dev/null 2>&1; then
-                                code "$selected_dir"
-                            else
-                                echo "❌ 'code' is not installed."
-                                return 1
-                            fi
-                            ;;
-                        -o) cd "$selected_dir" ;;  # Only change to the selected directory
-                        *) nvim "$selected_dir" ;;  # Default to nvim if no option or unrecognized option is given
-                    esac
-                else
-                    echo "🚫 No directory selected."
-                fi
-            }
-            export PATH=/home/kdlocpanda/.local/bin:$PATH
-    
-            MODEL_DIR="/home/kdlocpanda/personal/models"
-    
-            llm() {
-                local prompt="$1"
-                local model_alias="${2:-mistral}"
-                local temp="${3:-.5}"
-                local model_name=""
-    
-                case "$model_alias" in
-                    "mistral") model_name="/mistral-7b-instruct-v0.1-Q4_K_M-main.llamafile" ;;
-                    "llava") model_name="/llava-v1.5-7b-q4-server.llamafile" ;;
-                    "wizard") model_name="/wizardcoder-python-13b-main.llamafile" ;;
-                    "mixtral") model_name="mixtral-8x7b-instruct-v0.1.Q5_K_M.llamafile";;
-                    *) echo "Unknown model alias: $model_alias"; return 1 ;;
-                esac
-    
-                echo "Running model with prompt: $prompt"
-                bash -c "$MODEL_DIR/$model_name --ngl 5   --temp $temp  -p \"[INST]$prompt\[/INST]\" --log-disable"
-                echo "Model run completed"
-            }
-            MODEL_DIR="/home/kdlocpanda/personal/models"
-            llm_server() {
-                local model_alias="${1:-mistral}"
-                local model_name=""
-    
-                case "$model_alias" in
-                    "mistral") model_name="mistral-7b-instruct-v0.1-Q4_K_M-server.llamafile" ;;
-                    "llava") model_name="llava-v1.5-7b-q4-server.llamafile" ;;
-                    "wizard") model_name="wizardcoder-python-13b-server.llamafile" ;;
-                    *) echo "Unknown model alias: $model_alias"; return 1 ;;
-                esac
-    
-                bash -c "$MODEL_DIR/$model_name" --ngl 5
-            }
-            if [ -z "$SSH_AUTH_SOCK" ]; then
-              eval `ssh-agent -s`
-            fi
-          # Your zshrc functions here
-  - name: Add functions to .zshrc
-    blockinfile:
-      path: /home/kdlocpanda/.zshrc
-      block: "{{ zshrc_functions }}"
-      marker: "# {mark} ANSIBLE MANAGED BLOCK"
-      create: yes
-    become: true
-    become_user: kdlocpanda
-    tags: *tags_for_zsh_tasks
+- name: Uninstall ZSH
+  apt:
+    name: zsh
+    state: absent
+  become: true
+  tags: &tags_for_zsh_tasks ['zsh', 'personal', 'work']
+- name: Remove Oh-My-Zsh directory
+  file:
+    path: /home/kdlocpanda/.oh-my-zsh
+    state: absent
+  become: true
+  become_user: kdlocpanda
+  tags: *tags_for_zsh_tasks
+- name: Remove .zshrc configuration file
+  file:
+    path: /home/kdlocpanda/.zshrc
+    state: absent
+  become: true
+  become_user: kdlocpanda
+  tags: *tags_for_zsh_tasks
+- name: Install ZSH
+  apt:
+    name: zsh
+  become: true
+  tags: *tags_for_zsh_tasks
+- name: Change shell to zsh for kdlocpanda
+  user:
+    name: kdlocpanda
+    shell: /bin/zsh
+  become: true
+  tags: *tags_for_zsh_tasks
+- name: Check that the .oh-my-zsh exists
+  stat:
+    path: /home/kdlocpanda/.oh-my-zsh
+  register: oh_my_stats
+  tags: *tags_for_zsh_tasks
+- name: Install Oh-My-Zsh
+  shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+  become: true
+  become_user: kdlocpanda
+  when: oh_my_stats.stat.exists == False
+  tags: *tags_for_zsh_tasks
+- name: Install zsh-autosuggestions
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+    dest: /home/kdlocpanda/.oh-my-zsh/plugins/zsh-autosuggestions
+  become: true
+  become_user: kdlocpanda
+  tags: *tags_for_zsh_tasks
+- name: Install zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+    dest: /home/kdlocpanda/.oh-my-zsh/plugins/zsh-syntax-highlighting
+  become: true
+  become_user: kdlocpanda
+  tags: *tags_for_zsh_tasks
+- name: Add Plugins to .zshrc
+  lineinfile:
+    path: /home/kdlocpanda/.zshrc
+    regexp: '^plugins=\(.*\)'
+    line: 'plugins=(ansible git python zsh-autosuggestions zsh-syntax-highlighting)'
+    backrefs: yes
+    create: yes
+  become: true
+  become_user: kdlocpanda
+  tags: *tags_for_zsh_tasks
+- name: Define functions for .zshrc
+  set_fact:
+      zshrc_functions: |
+  
+          personal() {
+            ssh-add -D
+            ssh-add ~/.ssh/id_ed25519_personal
+            git config --global user.email "joshua.yorko@gmail.com"
+            echo "Switched to Personal SSH and Git Config."
+          }
+  
+          work() {
+            ssh-add -D
+            ssh-add ~/.ssh/id_ed25519_work
+          
+            git config --global user.name "Josh Yorko"
+            git config --global user.email "joshua.yorko@gainwelltechnologies.com"
+            echo "Switched to Work SSH and Git Config."
+          }
+  
+          edir() {
+              local search_term=$1
+              local editor_option=$2
+  
+              # Check if a search term is provided
+              if [ -z "$search_term" ]; then
+                  echo "❌ Provide a search term."
+                  return 1
+              fi
+  
+              # Check for required tool: fzf
+              if ! command -v fzf >/dev/null 2>&1; then
+                  echo "❌ Install 'fzf'."
+                  return 1
+              fi
+  
+              # Find directories matching the search term and select one using fzf
+              local selected_dir=$(find ~ ~/projects -type d -iname "*$search_term*" 2>/dev/null | fzf --prompt="Select a directory: ")
+  
+              # Check if a directory was selected
+              if [ -n "$selected_dir" ]; then
+                  case $editor_option in
+                      -c) 
+                          if command -v code >/dev/null 2>&1; then
+                              code "$selected_dir"
+                          else
+                              echo "❌ 'code' is not installed."
+                              return 1
+                          fi
+                          ;;
+                      -o) cd "$selected_dir" ;;  # Only change to the selected directory
+                      *) nvim "$selected_dir" ;;  # Default to nvim if no option or unrecognized option is given
+                  esac
+              else
+                  echo "🚫 No directory selected."
+              fi
+          }
+          export PATH=/home/kdlocpanda/.local/bin:$PATH
+  
+          MODEL_DIR="/home/kdlocpanda/personal/models"
+  
+          llm() {
+              local prompt="$1"
+              local model_alias="${2:-mistral}"
+              local temp="${3:-.5}"
+              local model_name=""
+  
+              case "$model_alias" in
+                  "mistral") model_name="/mistral-7b-instruct-v0.1-Q4_K_M-main.llamafile" ;;
+                  "llava") model_name="/llava-v1.5-7b-q4-server.llamafile" ;;
+                  "wizard") model_name="/wizardcoder-python-13b-main.llamafile" ;;
+                  "mixtral") model_name="mixtral-8x7b-instruct-v0.1.Q5_K_M.llamafile";;
+                  *) echo "Unknown model alias: $model_alias"; return 1 ;;
+              esac
+  
+              echo "Running model with prompt: $prompt"
+              bash -c "$MODEL_DIR/$model_name --ngl 5   --temp $temp  -p \"[INST]$prompt\[/INST]\" --log-disable"
+              echo "Model run completed"
+          }
+          MODEL_DIR="/home/kdlocpanda/personal/models"
+          llm_server() {
+              local model_alias="${1:-mistral}"
+              local model_name=""
+  
+              case "$model_alias" in
+                  "mistral") model_name="mistral-7b-instruct-v0.1-Q4_K_M-server.llamafile" ;;
+                  "llava") model_name="llava-v1.5-7b-q4-server.llamafile" ;;
+                  "wizard") model_name="wizardcoder-python-13b-server.llamafile" ;;
+                  *) echo "Unknown model alias: $model_alias"; return 1 ;;
+              esac
+  
+              bash -c "$MODEL_DIR/$model_name" --ngl 5
+          }
+          if [ -z "$SSH_AUTH_SOCK" ]; then
+            eval `ssh-agent -s`
+          fi
+        # Your zshrc functions here
+- name: Add functions to .zshrc
+  blockinfile:
+    path: /home/kdlocpanda/.zshrc
+    block: "{{ zshrc_functions }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    create: yes
+  become: true
+  become_user: kdlocpanda
+  tags: *tags_for_zsh_tasks
