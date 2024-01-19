@@ -36,6 +36,19 @@
 
     - name: Setup Personal Projects
       import_tasks: tasks/personal-projects.yaml
+    - name: Setup ZSH
+      import_tasks: tasks/zsh-setup.yaml
+      tags: 
+        - zsh
+    - name: Dotfiles
+      import_tasks: tasks/dotfile.yaml
+      tags:
+        - dotfiles
+    - name: Setup Fonts
+      import_tasks: tasks/fonts-setup.yaml
+      tags:
+        - fonts
+        
       tags:
         - personal-projects
 
