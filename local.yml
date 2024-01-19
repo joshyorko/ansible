@@ -30,7 +30,7 @@
         - core
 
     - name: Setup NVim and NVChad
-    - import_tasks: tasks/nvim-setup.yaml
+      import_tasks: tasks/nvim-setup.yaml
         tags:
           - nvim
 
