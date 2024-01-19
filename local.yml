@@ -53,3 +53,8 @@
       import_tasks: tasks/work-setup.yaml
       tags:
         - work-projects
+
+    - name: Setup ZSH
+      import_tasks: tasks/zsh-setup.yaml
+      tags:
+        - zsh
