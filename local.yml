@@ -2,7 +2,7 @@
   vars:
     personal_source_key: "./.ssh/id_ed25519_personal"
     personal_dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519_personal"
-    work_source_key: "./.ssh/id_ed25519_work" 
+    work_source_key: "./.ssh/id_ed25519_work"
     work_dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519_work"
     personal: "{{ lookup('env', 'HOME') }}/personal"
     work: "{{ lookup('env', 'HOME') }}/work"
@@ -31,8 +31,8 @@
 
     - name: Setup NVim and NVChad
       import_tasks: tasks/nvim-setup.yaml
-        tags:
-          - nvim
+      tags:
+        - nvim
 
     - name: Setup Personal Projects
       import_tasks: tasks/personal-projects.yaml
