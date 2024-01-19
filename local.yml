@@ -45,7 +45,9 @@
       import_tasks: tasks/fonts-setup.yaml
       tags:
         - fonts
-        
+
+    - name: Setup Personal Projects
+      import_tasks: tasks/personal-projects.yaml
       tags:
         - personal-projects
 
