@@ -1,10 +1,10 @@
-
 - name: Uninstall ZSH
   apt:
     name: zsh
     state: absent
   become: true
   tags: &tags_for_zsh_tasks ['zsh', 'personal', 'work']
+
 - name: Remove Oh-My-Zsh directory
   file:
     path: /home/kdlocpanda/.oh-my-zsh
@@ -12,35 +12,33 @@
   become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
-- name: Remove .zshrc configuration file
-  file:
-    path: /home/kdlocpanda/.zshrc
-    state: absent
-  become: true
-  become_user: kdlocpanda
-  tags: *tags_for_zsh_tasks
+
 - name: Install ZSH
   apt:
     name: zsh
   become: true
   tags: *tags_for_zsh_tasks
+
 - name: Change shell to zsh for kdlocpanda
   user:
     name: kdlocpanda
     shell: /bin/zsh
   become: true
   tags: *tags_for_zsh_tasks
+
 - name: Check that the .oh-my-zsh exists
   stat:
     path: /home/kdlocpanda/.oh-my-zsh
   register: oh_my_stats
   tags: *tags_for_zsh_tasks
+
 - name: Install Oh-My-Zsh
   shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
   become: true
   become_user: kdlocpanda
   when: oh_my_stats.stat.exists == False
   tags: *tags_for_zsh_tasks
+
 - name: Install zsh-autosuggestions
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
@@ -48,6 +46,7 @@
   become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
+
 - name: Install zsh-syntax-highlighting
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
@@ -55,6 +54,7 @@
   become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
+
 - name: Add Plugins to .zshrc
   lineinfile:
     path: /home/kdlocpanda/.zshrc
@@ -65,6 +65,7 @@
   become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
+
 - name: Define functions for .zshrc
   set_fact:
       zshrc_functions: |
@@ -162,6 +163,7 @@
             eval `ssh-agent -s`
           fi
         # Your zshrc functions here
+
 - name: Add functions to .zshrc
   blockinfile:
     path: /home/kdlocpanda/.zshrc
