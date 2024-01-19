@@ -68,6 +68,7 @@
 
 
 
+
 - name: Define functions for .zshrc
   set_fact:
       zshrc_functions: |
@@ -175,3 +176,4 @@
   become: true
   become_user: kdlocpanda
   tags: *tags_for_zsh_tasks
+
