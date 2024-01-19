@@ -56,7 +56,4 @@
       tags:
         - work-projects
 
-    - name: Setup ZSH
-      import_tasks: tasks/zsh-setup.yaml
-      tags:
-        - zsh
+   
