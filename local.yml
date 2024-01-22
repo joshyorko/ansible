@@ -56,4 +56,9 @@
       tags:
         - work-projects
 
+    - name: Setup OhMyZSH
+      import_tasks: tasks/zsh-setup.yaml
+      tags:
+        - zsh
+
    
