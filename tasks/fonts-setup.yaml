@@ -6,15 +6,6 @@
     state: directory
     mode: '0755'
 
-- name: Download MesloLGS NF fonts
-  become: true
-  become_user: kdlocpanda
-  get_url:
-    url: "{{ item.url }}"
-    dest: "/home/kdlocpanda/.local/share/fonts/{{ item.file }}"
-  loop:
-    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf', file: 'MesloLGS NF Regular.ttf' }
-    # ... other items ...
 
 - name: Download JetBrains Mono Nerd Font
   become: true
