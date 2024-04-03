@@ -60,5 +60,8 @@
       import_tasks: tasks/zsh-setup.yaml
       tags:
         - zsh
-
+    - name: Setup Docker
+      import_tasks: tasks/docker-setup.yaml
+      tags:
+        - docker
    
