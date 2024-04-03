@@ -12,20 +12,20 @@ RUN apt-get update && \
 
 FROM base AS yorko
 ARG TAGS
-RUN addgroup --gid 1000 kdlocpanda
-RUN adduser --gecos kdlocpanda --uid 1000 --gid 1000 --disabled-password kdlocpanda
-RUN echo 'kdlocpanda ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+RUN addgroup --gid 1000 jyorko
+RUN adduser --gecos jyorko --uid 1000 --gid 1000 --disabled-password jyorko
+RUN echo 'jyorko ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-WORKDIR /home/kdlocpanda
+WORKDIR /home/jyorko
 
 COPY . .
 
 
 USER root
 
-RUN chown -R kdlocpanda:kdlocpanda /home/kdlocpanda
+RUN chown -R jyorko:jyorko /home/jyorko
 
-USER kdlocpanda
+USER jyorko
 
 
 

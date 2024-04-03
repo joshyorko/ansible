@@ -4,40 +4,40 @@
   become: true
   tags: &tags_for_zsh_tasks ['zsh','personal','work']
 
-- name: Change shell to zsh for kdlocpanda
+- name: Change shell to zsh for jyorko
   user:
-    name: kdlocpanda
+    name: jyorko
     shell: /bin/zsh
   become: true
   tags: *tags_for_zsh_tasks
 
 - name: Check that the .oh-my-zsh exists
   stat:
-    path: /home/kdlocpanda/.oh-my-zsh
+    path: /home/jyorko/.oh-my-zsh
   register: oh_my_stats
   tags: *tags_for_zsh_tasks
 
 - name: Install Oh-My-Zsh
   shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
   become: true
-  become_user: kdlocpanda
+  become_user: jyorko
   when: oh_my_stats.stat.exists == False
   tags: *tags_for_zsh_tasks
 
 - name: Install zsh-autosuggestions
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
-    dest: /home/kdlocpanda/.oh-my-zsh/plugins/zsh-autosuggestions
+    dest: /home/jyorko/.oh-my-zsh/plugins/zsh-autosuggestions
   become: true
-  become_user: kdlocpanda
+  become_user: jyorko
   tags: *tags_for_zsh_tasks
 
 - name: Install zsh-syntax-highlighting
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-    dest: /home/kdlocpanda/.oh-my-zsh/plugins/zsh-syntax-highlighting
+    dest: /home/jyorko/.oh-my-zsh/plugins/zsh-syntax-highlighting
   become: true
-  become_user: kdlocpanda
+  become_user: jyorko
   tags: *tags_for_zsh_tasks
 
 

@@ -1,4 +1,4 @@
-- name: Ensure .ssh directory exists for kdlocpanda
+- name: Ensure .ssh directory exists for jyorko
   file:
     path: "{{ lookup('env', 'HOME') }}/.ssh"
     state: directory
