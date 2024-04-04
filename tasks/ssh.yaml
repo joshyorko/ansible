@@ -1,4 +1,4 @@
-- name: Ensure .ssh directory exists for jyorko
+- name: Ensure .ssh directory exists for cnoel
   file:
     path: "{{ lookup('env', 'HOME') }}/.ssh"
     state: directory

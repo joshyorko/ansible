@@ -12,20 +12,20 @@ RUN apt-get update && \
 
 FROM base AS yorko
 ARG TAGS
-RUN addgroup --gid 1000 jyorko
-RUN adduser --gecos jyorko --uid 1000 --gid 1000 --disabled-password jyorko
-RUN echo 'jyorko ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+RUN addgroup --gid 1000 cnoel
+RUN adduser --gecos cnoel --uid 1000 --gid 1000 --disabled-password cnoel
+RUN echo 'cnoel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-WORKDIR /home/jyorko
+WORKDIR /home/cnoel
 
 COPY . .
 
 
 USER root
 
-RUN chown -R jyorko:jyorko /home/jyorko
+RUN chown -R cnoel:cnoel /home/cnoel
 
-USER jyorko
+USER cnoel
 
 
 
