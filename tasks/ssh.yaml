@@ -1,4 +1,4 @@
-- name: Ensure .ssh directory exists for cnoel
+- name: Ensure .ssh directory exists for kdlocpanda
   file:
     path: "{{ lookup('env', 'HOME') }}/.ssh"
     state: directory

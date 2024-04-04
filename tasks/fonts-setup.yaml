@@ -1,18 +1,18 @@
 - name: Create font directory
   become: true
-  become_user: cnoel
+  become_user: kdlocpanda
   file:
-    path: "/home/cnoel/.local/share/fonts"
+    path: "/home/kdlocpanda/.local/share/fonts"
     state: directory
     mode: '0755'
 
 
 - name: Download JetBrains Mono Nerd Font
   become: true
-  become_user: cnoel
+  become_user: kdlocpanda
   get_url:
     url: "{{ item.url }}"
-    dest: "/home/cnoel/.local/share/fonts/{{ item.file }}"
+    dest: "/home/kdlocpanda/.local/share/fonts/{{ item.file }}"
     mode: '0644'
   loop:
     - { url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/Ligatures/Regular/JetBrainsMonoNerdFontMono-Regular.ttf', file: 'JetBrainsMonoNerdFontMono-Regular.ttf' }

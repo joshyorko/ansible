@@ -15,16 +15,16 @@ RUN apt-get update && \
 
 FROM base AS yorko
 ARG TAGS
-RUN addgroup --gid 1000 cnoel
-RUN adduser --gecos cnoel --uid 1000 --gid 1000 --disabled-password cnoel
-RUN echo 'cnoel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+RUN addgroup --gid 1000 kdlocpanda
+RUN adduser --gecos kdlocpanda --uid 1000 --gid 1000 --disabled-password kdlocpanda
+RUN echo 'kdlocpanda ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # New commands to create and set permissions for .ssh directory
-RUN mkdir -p /home/cnoel/.ssh && \
-    chown -R cnoel:cnoel /home/cnoel/.ssh
+RUN mkdir -p /home/kdlocpanda/.ssh && \
+    chown -R kdlocpanda:kdlocpanda /home/kdlocpanda/.ssh
 
-USER cnoel
-WORKDIR /home/cnoel
+USER kdlocpanda
+WORKDIR /home/kdlocpanda
 
 
 

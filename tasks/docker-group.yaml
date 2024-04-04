@@ -5,5 +5,5 @@
     groups: docker
     append: yes
   loop:
-    - cnoel
-    - cnoel
+    - kdlocpanda
+    - jyorko

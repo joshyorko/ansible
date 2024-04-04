@@ -1,6 +1,6 @@
 - name: Install NvChad
   become: true
-  become_user: cnoel
+  become_user: kdlocpanda
   git:
     repo: 'https://github.com/NvChad/NvChad.git'
     dest: '~/.config/nvim'

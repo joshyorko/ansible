@@ -79,7 +79,7 @@
     - personal-projects
 
 - name: Personal Project - socialscrape_web_app
-  become_user: cnoel
+  become_user: kdlocpanda
   ansible.builtin.git:
     repo: 'git@github.com:joshyorko/socialscrape_web_app.git'
     dest: "{{ personal }}/my_repos/socialscrape_web_app"
