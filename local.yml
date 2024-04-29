@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: all
   vars:
     personal_source_key: "./.ssh/id_ed25519_personal"
     personal_dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519_personal"
