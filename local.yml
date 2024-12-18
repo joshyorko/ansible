@@ -18,11 +18,11 @@
         - work
         - nvim
 
-  tasks:
-    - name: Setup SSH
-      import_tasks: tasks/ssh.yaml
-      tags:
-        - ssh
+  #tasks:
+  #  - name: Setup SSH
+  #    import_tasks: tasks/ssh.yaml
+  #    tags:
+  #      - ssh
 
     - name: Core Setup
       import_tasks: tasks/core-setup.yaml
@@ -60,11 +60,3 @@
       import_tasks: tasks/zsh-setup.yaml
       tags:
         - zsh
-    - name: Setup Docker
-      import_tasks: tasks/docker-setup.yaml
-      tags:
-        - docker
-    - name: Add Josh and Colby to Docker Group
-      import_tasks: tasks/docker-group.yaml
-      tags:
-        - docker-group
