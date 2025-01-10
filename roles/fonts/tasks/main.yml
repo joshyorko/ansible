@@ -1,18 +1,18 @@
 - name: Create font directory
   become: true
-  become_user: kdlocpanda
+  become_user: "{{ ansible_user }}"
   file:
-    path: "/home/kdlocpanda/.local/share/fonts"
+    path: "{{ fonts_install_dir }}"
     state: directory
     mode: '0755'
 
 
 - name: Download JetBrains Mono Nerd Font
   become: true
-  become_user: kdlocpanda
+  become_user: "{{ ansible_user }}"
   get_url:
     url: "{{ item.url }}"
-    dest: "/home/kdlocpanda/.local/share/fonts/{{ item.file }}"
+    dest: "{{ fonts_install_dir }}/{{ item.file }}"
     mode: '0644'
   loop:
     - { url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/Ligatures/Regular/JetBrainsMonoNerdFontMono-Regular.ttf', file: 'JetBrainsMonoNerdFontMono-Regular.ttf' }

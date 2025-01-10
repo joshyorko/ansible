@@ -18,7 +18,7 @@ RUN echo 'kdlocpanda ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 WORKDIR /home/kdlocpanda
 
-COPY . .
+COPY . . 
 
 
 USER root

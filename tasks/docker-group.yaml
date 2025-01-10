@@ -1,9 +1,0 @@
-- name: Add users to docker group
-  become: true
-  user:
-    name: "{{ item }}"
-    groups: docker
-    append: yes
-  loop:
-    - kdlocpanda
-    - jyorko

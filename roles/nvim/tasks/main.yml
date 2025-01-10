@@ -1,0 +1,32 @@
+- name: Remove neovim
+  shell: rm -rf ~/neovim
+  tags:
+    - install
+    - neovim
+
+- name: Clone Neovim
+  ansible.builtin.git:
+    repo: "{{ nvim_config_repo }}"
+    dest: "{{ nvim_install_dir }}"
+  tags:
+    - install
+    - neovim 
+
+- name: Build neovim
+  shell: "cd {{ nvim_install_dir }} && make CMAKE_BUILD_TYPE=RelWithDebInfo -j 20"
+  tags:
+    - install
+    - neovim
+
+- name: Install neovim
+  become: true
+  shell: "cd {{ nvim_install_dir }} && make install"
+  tags:
+    - install
+    - neovim
+
+
+
+
+
+

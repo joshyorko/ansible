@@ -1,0 +1,28 @@
+- hosts: all
+  become: true
+
+  pre_tasks:
+    - name: Update Apt
+      apt:
+        force_apt_get: true
+        update_cache: true
+        state: present
+      tags:
+        - personal
+        - nvim
+
+  roles:
+    - role: core
+      tags: core
+
+    - role: nvim
+      tags: nvim
+
+    - role: fonts
+      tags: fonts
+
+    - role: zsh
+      tags: zsh
+
+    - role: dotfiles
+      tags: dotfiles
