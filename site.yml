@@ -14,15 +14,17 @@
   roles:
     - role: core
       tags: core
-
+    - role: ssh
+      tags: ssh
+     
     - role: nvim
       tags: nvim
 
     - role: fonts
       tags: fonts
 
-    - role: zsh
-      tags: zsh
-
     - role: dotfiles
       tags: dotfiles
+
+    - role: zsh
+      tags: zsh

@@ -48,4 +48,14 @@
   become_user: "{{ ansible_user }}"
   tags: *tags_for_zsh_tasks
 
+- name: Copy .zshrc from .dotfiles
+  copy:
+    src: "/home/{{ ansible_user }}/.dotfiles/dotfiles/.zshrc"
+    dest: "/home/{{ ansible_user }}/.zshrc"
+    remote_src: yes
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: *tags_for_zsh_tasks
+
+
 

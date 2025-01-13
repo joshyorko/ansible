@@ -42,10 +42,47 @@
 
 - name: Install Python3 and venv for virtual environment creation
   become: true
-  
   apt:
     name: ["python3", "python3-venv"]
     state: present
+  tags:
+    - install
+    - core
+
+- name: Install kubectl
+  become: true
+  shell: "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/local/bin/"
+  tags:
+    - install
+    - core
+
+- name: Install helm
+  become: true
+  shell: "curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash"
+  tags:
+    - install
+    - core
+
+- name: Install k9s
+  become: true
+  shell: "curl -sS https://webinstall.dev/k9s | bash"
+  tags:
+    - install
+    - core
+
+- name: Install MinIO client (mc)
+  become: true
+  shell: "curl -O https://dl.min.io/client/mc/release/linux-amd64/mc && chmod +x mc && mv mc /usr/local/bin/"
+  tags:
+    - install
+    - core
+
+- name: Install AWS CLI version 2
+  become: true
+  shell: |
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
   tags:
     - install
     - core
