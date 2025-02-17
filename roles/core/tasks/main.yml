@@ -25,6 +25,20 @@
     - core
     - neovim
 
+- name: Get system architecture
+  shell: "dpkg --print-architecture"
+  register: system_architecture
+  changed_when: false
+  tags:
+    - install
+    - core
+
+- name: Set architecture fact
+  set_fact:
+    is_arm: "{{ system_architecture.stdout in ['arm64', 'armhf', 'arm'] }}"
+  tags:
+    - install
+    - core
 
 - name: Install Node.js and npm
   become: true
@@ -39,7 +53,6 @@
     - install
     - core
 
-
 - name: Install Python3 and venv for virtual environment creation
   become: true
   apt:
@@ -51,7 +64,10 @@
 
 - name: Install kubectl
   become: true
-  shell: "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/local/bin/"
+  shell: >
+    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/{{ 'arm64' if is_arm else 'amd64' }}/kubectl" &&
+    chmod +x kubectl &&
+    mv kubectl /usr/local/bin/
   tags:
     - install
     - core
@@ -66,13 +82,29 @@
 - name: Install k9s
   become: true
   shell: "curl -sS https://webinstall.dev/k9s | bash"
+  when: not is_arm
+  tags:
+    - install
+    - core
+
+- name: Install k9s (ARM)
+  become: true
+  shell: |
+    VERSION=$(curl -s https://api.github.com/repos/derailed/k9s/releases/latest | grep tag_name | cut -d '"' -f 4)
+    curl -LO "https://github.com/derailed/k9s/releases/download/${VERSION}/k9s_Linux_arm64.tar.gz"
+    tar xzf k9s_Linux_arm64.tar.gz
+    mv k9s /usr/local/bin/
+  when: is_arm
   tags:
     - install
     - core
 
 - name: Install MinIO client (mc)
   become: true
-  shell: "curl -O https://dl.min.io/client/mc/release/linux-amd64/mc && chmod +x mc && mv mc /usr/local/bin/"
+  shell: >
+    curl -O "https://dl.min.io/client/mc/release/linux-{{ 'arm64' if is_arm else 'amd64' }}/mc" &&
+    chmod +x mc &&
+    mv mc /usr/local/bin/
   tags:
     - install
     - core
@@ -80,7 +112,7 @@
 - name: Install AWS CLI version 2
   become: true
   shell: |
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-{{ 'aarch64' if is_arm else 'x86_64' }}.zip" -o "awscliv2.zip"
     unzip awscliv2.zip
     sudo ./aws/install
   tags:
