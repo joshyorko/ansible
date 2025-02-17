@@ -4,8 +4,8 @@
   pre_tasks:
     - name: Update Apt
       apt:
-        force_apt_get: true
-        update_cache: true
+        force_apt_get: false
+        update_cache: false
         state: present
       tags:
         - personal
@@ -14,8 +14,9 @@
   roles:
     - role: core
       tags: core
-    - role: ssh
-      tags: ssh
+
+    #- role: ssh
+    #  tags: ssh
      
     - role: nvim
       tags: nvim
