@@ -40,15 +40,6 @@
     - install
     - core
 
-- name: Check if Node.js is installed
-  shell: "dpkg -l | grep -q nodejs"
-  register: nodejs_check
-  failed_when: false
-  changed_when: false
-  tags:
-    - install
-    - core
-
 - name: Install Node.js and npm
   become: true
   block:
@@ -58,16 +49,15 @@
       apt:
         name: ["nodejs"]
         state: present
-  when: nodejs_check.rc != 0
   tags:
     - install
     - core
 
-- name: Check if kubectl exists
-  shell: "which kubectl"
-  register: kubectl_check
-  failed_when: false
-  changed_when: false
+- name: Install Python3 and venv for virtual environment creation
+  become: true
+  apt:
+    name: ["python3", "python3-venv"]
+    state: present
   tags:
     - install
     - core
@@ -78,16 +68,6 @@
     curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/{{ 'arm64' if is_arm else 'amd64' }}/kubectl" &&
     chmod +x kubectl &&
     mv kubectl /usr/local/bin/
-  when: kubectl_check.rc != 0
-  tags:
-    - install
-    - core
-
-- name: Check if helm exists
-  shell: "which helm"
-  register: helm_check
-  failed_when: false
-  changed_when: false
   tags:
     - install
     - core
@@ -95,16 +75,6 @@
 - name: Install helm
   become: true
   shell: "curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash"
-  when: helm_check.rc != 0
-  tags:
-    - install
-    - core
-
-- name: Check if k9s exists
-  shell: "which k9s"
-  register: k9s_check
-  failed_when: false
-  changed_when: false
   tags:
     - install
     - core
@@ -112,7 +82,7 @@
 - name: Install k9s
   become: true
   shell: "curl -sS https://webinstall.dev/k9s | bash"
-  when: not is_arm and k9s_check.rc != 0
+  when: not is_arm
   tags:
     - install
     - core
@@ -124,16 +94,7 @@
     curl -LO "https://github.com/derailed/k9s/releases/download/${VERSION}/k9s_Linux_arm64.tar.gz"
     tar xzf k9s_Linux_arm64.tar.gz
     mv k9s /usr/local/bin/
-  when: is_arm and k9s_check.rc != 0
-  tags:
-    - install
-    - core
-
-- name: Check if mc exists
-  shell: "which mc"
-  register: mc_check
-  failed_when: false
-  changed_when: false
+  when: is_arm
   tags:
     - install
     - core
@@ -144,16 +105,6 @@
     curl -O "https://dl.min.io/client/mc/release/linux-{{ 'arm64' if is_arm else 'amd64' }}/mc" &&
     chmod +x mc &&
     mv mc /usr/local/bin/
-  when: mc_check.rc != 0
-  tags:
-    - install
-    - core
-
-- name: Check if aws exists
-  shell: "which aws"
-  register: aws_check
-  failed_when: false
-  changed_when: false
   tags:
     - install
     - core
@@ -164,7 +115,6 @@
     curl "https://awscli.amazonaws.com/awscli-exe-linux-{{ 'aarch64' if is_arm else 'x86_64' }}.zip" -o "awscliv2.zip"
     unzip awscliv2.zip
     sudo ./aws/install
-  when: aws_check.rc != 0
   tags:
     - install
     - core
